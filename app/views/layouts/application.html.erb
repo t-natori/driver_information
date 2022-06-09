@@ -6,18 +6,26 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header>
-      <% if customer_signed_in? %>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "ログイン", new_customer_session_path %>
-      <% end %>
-    </header>
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-4 offset-4">
+          <header>
+            <% if customer_signed_in? %>
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+            <% else %>
+              <%= link_to "ログイン", new_customer_session_path %>
+            <% end %>
+          </header>
+        </div>
+      </div>
+      <div class="row">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
