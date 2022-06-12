@@ -1,2 +1,45 @@
-<h1>Publics::Posts#index</h1>
-<p>Find me in app/views/publics/posts/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>投稿一覧</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>投稿者(ニックネーム)</td>
+            <td>施設名</td>
+            <td>おすすめ度</td>
+            <td>ジャンル</td>
+            <td>施設の種類</td>
+            <td>投稿ステータス</td>
+            <td>いいね</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |t| %>
+          <tr>
+            <td>
+              <%= link_to customer_path(t.cusomer_id) do %>
+                <%= t.customer.nickname %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to post_path(t.id) do %>
+                <%= t.name %>
+              <% end %>
+            </td>
+            <td><%= t.recommend %></td>
+            <td><%= t.genre %></td>
+            <td><%= t.category %></td>
+            <td><%= t.status %></td>
+            <td>♡（数字）</td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

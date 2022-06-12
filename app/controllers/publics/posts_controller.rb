@@ -19,11 +19,12 @@ class Publics::PostsController < ApplicationController
   end
 
   def index
-    @post = Post.find(params[:id])
-    
+    @posts = Post.all
+
   end
 
   def show
+    @post = Post.find(params[:id])
   end
 
   def destroy
