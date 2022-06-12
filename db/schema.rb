@@ -66,12 +66,12 @@ ActiveRecord::Schema.define(version: 2022_06_11_100135) do
     t.integer "genre_id"
     t.string "name", null: false
     t.string "address", null: false
-    t.integer "type", null: false
+    t.integer "category", null: false
     t.float "recommend", null: false
     t.float "clean", null: false
     t.integer "parking", null: false
     t.text "detail"
-    t.boolean "status", null: false
+    t.boolean "status", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -19,6 +19,8 @@ class Publics::PostsController < ApplicationController
   end
 
   def index
+    @post = Post.find(params[:id])
+    
   end
 
   def show
