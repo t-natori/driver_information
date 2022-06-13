@@ -41,7 +41,7 @@ class Publics::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:name, :address, :type, :recommend, :genre, :clean, :parking, :detail, :status)
+    params.require(:post).permit(:name, :address, :category, :recommend, :genre, :clean, :parking, :detail, :status)
   end
 
 end

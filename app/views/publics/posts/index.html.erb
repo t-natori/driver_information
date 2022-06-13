@@ -31,8 +31,8 @@
                 <%= t.name %>
               <% end %>
             </td>
-            <td class="review-rating" data-score="<%= product_comment.rate %>">評価：</td>
-            <td><%= t.genre %></td>
+            <td><div id="star"></div></td>
+            <td><%= t.genre(genre.id) %></td>
             <td><%= t.category %></td>
             <td><%= t.status %></td>
             <td>♡（数字）</td>
@@ -43,3 +43,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  $("#star").raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[recommend]'
+    });
+</script>
+
+

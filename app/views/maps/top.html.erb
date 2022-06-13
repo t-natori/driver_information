@@ -1,17 +1,33 @@
 
-<h2>投稿一覧</h2>
-<div>
-  <input id="address" type="textbox" value="">
-  <input type="button" value="検索" onclick="codeAddress()">
-</div></br >
-<div id="display">何かが表示される、、、、！</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2><strong>投稿一覧MAP</strong></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
 
-<div id='map'></div>
+
+      <div>
+        <input id="address" type="textbox" value="">
+        <input type="button" value="検索" onclick="codeAddress()">
+      </div>
+      <div id="display">何かが表示される、、、、！</div>
+
+      <div id='map'></div>
+
+    </div>
+  </div>
+</div>
+
+
 
 <style>
 #map {
+  margin: auto;
   height: 500px;
-  width: 100%;
+  width: 95%;
 }
 </style>
 
@@ -38,13 +54,19 @@ const display = document.getElementById('display')
 function codeAddress(){
   let inputAddress = document.getElementById('address').value;
 
+// 　前のピンを消す
+  if(marker != null){
+		    marker.setMap(null);
+		  }
+		  marker = null;
+//   ここまで
   geocoder.geocode( { 'address': inputAddress}, function(results, status) {
     if (status == 'OK') {
       map.setCenter(results[0].geometry.location);
-      // var marker = new google.maps.Marker({
-      //     map: map,
-      //     position: results[0].geometry.location
-      // });
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
        display.textContent = "検索結果：" + results[ 0 ].geometry.location
     } else {
       alert('該当する結果がありませんでした：' + status);
