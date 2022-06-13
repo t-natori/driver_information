@@ -18,10 +18,11 @@ Rails.application.routes.draw do
   namespace :admins do
     resources :customers, only: [:index, :show, :edit, :update]
 
-    resources :posts, only: [:index, :show, :destroy]
-      resources :commentss, only: [:destroy]
+    resources :posts, only: [:index, :show, :destroy] do
+      resources :comments, only: [:destroy]
+    end
+    resources :genres, only: [:index, :create, :edit, :update, :destroy]
 
-    resources :genres, only: [:index, :create, :edit, :update]
   end
 
   scope module: :publics do
