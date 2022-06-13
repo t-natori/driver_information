@@ -1,2 +1,54 @@
-<h1>Publics::Posts#show</h1>
-<p>Find me in app/views/publics/posts/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>投稿詳細</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table>
+        <tbody>
+          <tr>
+            <td>施設名</td>
+            <td><%= @post.name %></td>
+          </tr>
+          <tr>
+            <td>住所</td>
+            <td><%= @post.address %></td>
+          </tr>
+          <tr>
+            <td>施設の種類</td>
+            <td><%= @post.category %></td>
+          </tr>
+          <tr>
+            <td>おすすめ度</td>
+            <td><%= @post.recommend %></td>
+          </tr>
+          <tr>
+            <td>ジャンル</td>
+            <td><%= @post.genre %></td>
+          </tr>
+          <tr>
+            <td>清潔度</td>
+            <td><%= @post.clean %></td>
+          </tr>
+          <tr>
+            <td>駐車情報</td>
+            <td><%= @post.parking %></td>
+          </tr>
+          <tr>
+            <td>詳細説明</td>
+            <td><%= @post.detail %></td>
+          </tr>
+          <tr>
+            <td>投稿ステータス</td>
+            <td><%= @post.status %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
