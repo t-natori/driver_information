@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 2022_06_11_100135) do
     t.integer "genre_id"
     t.string "name", null: false
     t.string "address", null: false
+    t.float "latitude"
+    t.float "longitude"
     t.integer "category", null: false
     t.float "recommend", null: false
     t.float "clean", null: false

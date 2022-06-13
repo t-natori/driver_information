@@ -1,0 +1,18 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <%= link_to root_path,class: "header-logo-letter" do %>rogo<% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+        <!--ログアウト時-->
+          <li class="mx-3"><%= link_to 'HOME', root_path, class: 'btn btn-outline-secondary nav-link text-dark' %></li>
+          <li class="mx-3"><%= link_to '新規登録', new_customer_registration_path, class: 'btn btn-outline-secondary nav-link text-dark' %></li>
+          <li class="mx-3"><%= link_to 'ログイン', new_customer_session_path, class: 'btn btn-outline-secondary nav-link text-dark' %></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
