@@ -1,6 +1,4 @@
-class PostsController < ApplicationController
-  before_action :authenticate_admin!
-
+class Admins::PostsController < ApplicationController
   def index
   end
 

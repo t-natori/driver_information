@@ -1,4 +1,2 @@
-class CommentsController < ApplicationController
-  before_action :authenticate_admin!
-  
+class Admins::CommentsController < ApplicationController
 end

@@ -1,6 +1,4 @@
-class CustomersController < ApplicationController
-  before_action :authenticate_admin!
-
+class Admins::CustomersController < ApplicationController
   def index
   end
 
