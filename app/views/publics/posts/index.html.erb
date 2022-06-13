@@ -31,7 +31,7 @@
                 <%= t.name %>
               <% end %>
             </td>
-            <td><%= t.recommend %></td>
+            <td class="review-rating" data-score="<%= product_comment.rate %>">評価：</td>
             <td><%= t.genre %></td>
             <td><%= t.category %></td>
             <td><%= t.status %></td>

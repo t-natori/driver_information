@@ -1,2 +1,56 @@
-<h1>Maps#top</h1>
-<p>Find me in app/views/maps/top.html.erb</p>
+
+<h2>投稿一覧</h2>
+<div>
+  <input id="address" type="textbox" value="">
+  <input type="button" value="検索" onclick="codeAddress()">
+</div></br >
+<div id="display">何かが表示される、、、、！</div>
+
+<div id='map'></div>
+
+<style>
+#map {
+  height: 500px;
+  width: 100%;
+}
+</style>
+
+<script>
+let map
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.6896067, lng: 139.7005713},
+    zoom: 12,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat: 35.6896067, lng: 139.7005713},
+    map: map
+  });
+}
+
+let geocoder
+const display = document.getElementById('display')
+
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      // var marker = new google.maps.Marker({
+      //     map: map,
+      //     position: results[0].geometry.location
+      // });
+       display.textContent = "検索結果：" + results[ 0 ].geometry.location
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["API_KEY"] %>&callback=initMap" async defer></script>

@@ -21,9 +21,9 @@
             <td><%= f.label :category, "施設の種類" %></td>
             <td><%= f.text_field :category %></td>
           </tr>
-          <tr>
-            <td><%= f.label :recommend, "おすすめ度" %></td>
-            <td><%= f.text_field :recommend %></td>
+          <tr class="rating-form">
+            <td><label>おすすめ度</label></td>
+            <% fidden_field :recommend, :value => 'score' %>
           </tr>
           <tr>
             <td><%= f.label :genre, "ジャンル" %></td>
@@ -60,3 +60,12 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  $('#rating-form').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[reccomend]'
+    });
+</script>

@@ -14,7 +14,12 @@ end
 validates :name, presence: true
 validates :address, presence: true
 validates :type, presence: true
-validates :recommend, presence: true
+
+#星評価5以下1以上
+validates :recommend, numericality: {
+    less_than_or_equal_to: 5,
+    greater_than_or_equal_to: 1}, presence: true
+
 validates :clean, presence: true
 validates :parking, presence: true
 validates :status, presence: true
