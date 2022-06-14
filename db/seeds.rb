@@ -19,3 +19,8 @@ Genre.create!(
     }
     ]
   )
+
+  Admin.create!(
+    email: "test@admin",
+    password: "testadmin"
+    )

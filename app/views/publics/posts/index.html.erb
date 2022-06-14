@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h2>投稿一覧</h2>
+      <h2><strong>投稿一覧</strong></h2>
     </div>
   </div>
   <div class="row">
@@ -14,8 +14,8 @@
             <td>おすすめ度</td>
             <td>ジャンル</td>
             <td>施設の種類</td>
+            <td>いいね</td>            
             <td>投稿ステータス</td>
-            <td>いいね</td>
           </tr>
         </thead>
         <tbody>
@@ -34,22 +34,26 @@
             <td><div id="star"></div></td>
             <td><%= t.genre(genre.id) %></td>
             <td><%= t.category %></td>
+            <td>♡（数字）</td>            
             <td><%= t.status %></td>
-            <td>♡（数字）</td>
           </tr>
-          <% end %>
+
         </tbody>
       </table>
     </div>
   </div>
 </div>
 
-<script>
-  $("#star").raty({
-    starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      scoreName: 'post[recommend]'
-    });
-</script>
-
+            <script>
+              $("#star").raty({
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                scoreName: 'post[recommend]'
+                // 読み取り専用
+                readOnly: true,
+                // 星評価の表示
+                score: <%= f.recommend %>,
+              });
+            </script>
+          <% end %>
 

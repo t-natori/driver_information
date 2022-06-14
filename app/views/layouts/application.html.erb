@@ -12,15 +12,13 @@
 
   <body class="body">
     <header>
-      <% if customer_signed_in? %>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      <% else %>
         <%= render "layouts/header" %>
-      <% end %>
     </header>
       <main>
-        <div class="row">
-          <%= yield %>
+        <div class="container mt-3">
+          <div class="row">
+            <%= yield %>
+          </div>
         </div>
       </main>
     </div>

@@ -35,12 +35,13 @@ class DeviseCreateCustomers < ActiveRecord::Migration[6.1]
       # 氏名、カナ、ニックネーム、電話番号を保存するカラム
       t.string :name
       t.string :name_kana
-      t.string :nickname
+      t.string :nickname, null: false
       t.string :phone_number
+      t.boolean :status, default: true
 
       t.timestamps null: false
     end
-    
+
     add_index :customers, :email,                unique: true
     add_index :customers, :reset_password_token, unique: true
     # add_index :customers, :confirmation_token,   unique: true
