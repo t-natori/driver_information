@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   root to: 'maps#top'
+  
+  get '/index' => 'maps#index'
 
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',

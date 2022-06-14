@@ -1,2 +1,88 @@
-<h1>Admins::Posts#show</h1>
-<p>Find me in app/views/admins/posts/show.html.erb</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h2><strong>投稿一覧</strong></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>会員ID</td>
+            <td><%= @post.customer.id %></td>
+          </tr>
+          <tr>
+            <td>氏名</td>
+            <td>
+              <%= link_to admins_customer_path(@post.customer.id) do %>
+                <%= @post.customer.name %></td>
+              <% end %>
+          </tr>
+          <tr>
+            <td>氏名(ニックネーム)</td>
+            <td><%= @post.customer.nickname %></td>
+          </tr>
+          <tr>
+            <td>施設名</td>
+            <td><%= @post.name %></td>
+          </tr>
+          <tr>
+            <td>住所</td>
+            <td><%= @post.address %></td>
+          </tr>
+          <tr>
+            <td>おすすめ度</td>
+            <td><div id="star"></div></td>
+          </tr>
+          <tr>
+            <td>ジャンル名</td>
+            <td><%= f.genre %></td>
+          </tr>
+        　<tr>
+            <td>清潔度</td>
+            <td><div id="star_clean"></div></td>
+          </tr>
+        　<tr>
+            <td>駐車情報</td>
+            <td><%= @post.parking %></td>
+          </tr>
+        　<tr>
+            <td>詳細内容</td>
+            <td><%= @post.detail %></td>
+          </tr>
+          <tr>
+            <td>いいね</td>
+            <td>♡(数字)</td>
+          </tr>
+          <tr>
+            <td>投稿ステータス</td>
+            <td><%= @post.status %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $("#star").raty{
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    scoreName: 'post[recommend]'
+    // 読み取り専用
+    readOnly: true,
+    // 星評価の表示
+    score: <%= @post.recommend %>,
+  });
+  $("#star_clean").raty{
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    scoreName: 'post[recommend]'
+    // 読み取り専用
+    readOnly: true,
+    // 星評価の表示
+    score: <%= @post.clean %>,
+  });
+</script>
