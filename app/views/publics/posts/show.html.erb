@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <table>
+      <table class="table">
         <tbody>
           <tr>
             <td>施設名</td>
@@ -17,38 +17,65 @@
             <td><%= @post.address %></td>
           </tr>
           <tr>
-            <td>施設の種類</td>
-            <td><%= @post.category %></td>
-          </tr>
-          <tr>
             <td>おすすめ度</td>
-            <td><%= @post.recommend %></td>
+            <td><div id="star"></div></td>
           </tr>
           <tr>
             <td>ジャンル</td>
-            <td><%= @post.genre %></td>
+            <td><%= @post.genre.name %></td>
           </tr>
           <tr>
             <td>清潔度</td>
-            <td><%= @post.clean %></td>
-          </tr>
-          <tr>
-            <td>駐車情報</td>
-            <td><%= @post.parking %></td>
+            <td><div id="star-clean"></div></td>
           </tr>
           <tr>
             <td>詳細説明</td>
             <td><%= @post.detail %></td>
           </tr>
           <tr>
+            <td>いいね</td>
+            <td>♡</td>
+
+          </tr>
+          <tr>
             <td>投稿ステータス</td>
-            <td><%= @post.status %></td>
+            <td>
+              <% if @post.status == true %>
+                <%= "公開" %>
+              <% elsif @post.status == false %>
+                <%= "非公開" %>
+              <% end %>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <div class="row">
+    <%= link_to "投稿一覧", posts_path, class:"btn btn-primary col-3 offset-5" %>
+    <% if @post.customer_id == current_customer.id %>
+      <%= link_to "編集", edit_post_path(@post.id), class:"btn btn-success col-3 offset-1" %>
+    <% end %>
+  </div>
 </div>
 
 
 
+<script>
+  $('#star').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[recommend]',
+      readOnly: true,
+      score: <%= @post.recommend %>,
+  });
+  $('#star-clean').raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    scoreName: 'post[clean]',
+    // 読み取り専用
+    readOnly: true,
+    // 星評価の表示
+    score: <%= @post.clean %>,
+  });
+</script>
