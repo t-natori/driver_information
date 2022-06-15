@@ -1,54 +1,42 @@
-<div class="container">
+<div class="container mt-3 ml-5">
   <div class="row">
-    <div class="col">
-      <h2><strong></strong></h2>
+    <div class="col-6 offset-3">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>
+          <%= "会員情報編集" %>
+        </strong>
+      </h2>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <table>
-        <tbody>
-          <%= form_with model: @customer do |f| %>
-          <tr>
-            <td>会員ID</td>
-            <td><%= f.customer.id %></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><%= f.text_field :name %></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><%= f.text_field :name_kana %></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><%= f.text_field :nickname %></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><%= f.text_field :email %></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><%= f.telephone_field :phone_number %></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <%= f.radio_button :status, "true" %>
-              <%= f.label :status, "有効" %>
-              <%= f.radio_button :status, "false" %>
-              <%= f.label :status, "退会" %>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><%= f.submit "更新" %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <div class="row">
+    <div class="col-8 offset-2 p-5" style="background-color: lightblue;">
+      <%= form_with model: @customer, url: customer_path do |f| %>
+        <div class="form-group row mx-auto">
+          <%= f.label :name, "氏名", class: "col-3" %>
+          <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :name_kana, "氏名（カナ）", class: "col-3", class: "col-3" %>
+          <%= f.text_field :name_kana, autocomplete: "name_kana", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :nickname, "ニックネーム", class: "col-3" %>
+          <%= f.text_field :nickname, autocomplete: "nickname", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :email, "メールアドレス", class: "col-3" %>
+          <%= f.email_field :email, autocomplete: "email", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :phone_number, "電話番号", class: "col-3" %>
+          <%= f.telephone_field :phone_number, autocomplete: "phone_number", class: "col-5" %>
+        </div>
+          <div class="row">
+          <div class="col-5 offset-3">
+            <%= f.submit "更新", class: "btn btn-success btn-lg btn-block" %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  </div>
+    </div>
 </div>

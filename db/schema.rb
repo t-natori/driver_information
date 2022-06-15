@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 2022_06_11_100135) do
     t.string "address", null: false
     t.float "latitude"
     t.float "longitude"
-    t.integer "category", null: false
+    t.integer "category"
     t.float "recommend", null: false
     t.float "clean", null: false
-    t.integer "parking", null: false
+    t.integer "parking"
     t.text "detail"
     t.boolean "status", default: true, null: false
     t.datetime "created_at", precision: 6, null: false

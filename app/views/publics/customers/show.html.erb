@@ -1,2 +1,100 @@
-<h1>Publics::Customers#show</h1>
-<p>Find me in app/views/publics/customers/show.html.erb</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>
+          <%= "マイページ" %>
+        </strong>
+      </h2>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-3 table" style="background-color: pink;">
+      <h4 class="text-center mt-2"><strong>ユーザー情報</strong></h4>
+      <div>
+        <label>氏名</label><br>
+        <strong class="d-flex justify-content-center"><%= @customer.name %></strong>
+      </div><br>
+      <div>
+        <label>氏名(カナ)</label><br>
+        <strong class="d-flex justify-content-center"><%= @customer.name_kana %></strong>
+      </div><br>
+      <div>
+        <label>ニックネーム</label><br>
+        <strong class="d-flex justify-content-center"><%= @customer.nickname %></strong>
+      </div><br>
+      <div>
+        <label>メールアドレス</label><br>
+        <strong class="d-flex justify-content-center"><%= @customer.email %></strong>
+      </div><br>
+      <div>
+        <label>電話番号</label><br>
+        <strong class="d-flex justify-content-center"><%= @customer.phone_number %></strong>
+      </div><br>
+      <div>
+        <label>会員ステータス</label><br>
+        <div>
+          <strong class="d-flex justify-content-center">
+            <% if @customer.status == true %>
+              <%= "有効" %>
+            <% else %>
+              <%= "退会" %>
+            <% end %>
+          </strong>
+        </div>
+      </div><br>
+      <%= link_to "ユーザー編集", edit_customer_path(@customer.id), class:"btn btn-success btn-block mt-3 mb-2" %>
+      <%= link_to "退会する", 
+    </div>
+    <div class="col-9" style="background-color: orange;">
+      <h4 class="text-center mt-2">
+        <strong>投稿一覧</strong>
+      </h4>
+      <table class="table">
+  <thead>
+    <tr>
+      <td>施設名</td>
+      <td>住所</td>
+      <td>おすすめ度</td>
+      <td>ジャンル</td>
+      <td>いいね</td>
+      <td>投稿ステータス</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |t| %>
+    <tr>
+      <td>
+        <%= link_to post_path(t.id) do %>
+          <%= t.name %>
+        <% end %>
+      </td>
+      <td><%= t.address %></td>
+      <td><div id="star-<%= t.id %>"></div></td>
+        <script>
+          $("#star-<%= t.id %>").raty({
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            scoreName: 'post[recommend]',
+            // 読み取り専用
+            readOnly: true,
+            // 星評価の読み込み
+            score: <%= t.recommend %>,
+          });
+        </script>
+      <td><%= t.genre.name %></td>
+      <td>♡（数字）</td>
+      <td>
+        <% if t.status == true %>
+          <%= "公開" %>
+        <% else %>
+          <%= "非公開" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>

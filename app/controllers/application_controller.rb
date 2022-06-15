@@ -6,12 +6,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    if resource_class == Customer
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :name_kana, :nickname, :email, :phone_number])
-      devise_parameter_sanitizer.permit(:sign_in, keys: [:nickname, :email])
-      devise_parameter_sanitizer.permit(:sign_update, keys: [:name, :name_kana, :nickname, :email, :phone_number])
-    else
-      devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
-    end
   end
 end

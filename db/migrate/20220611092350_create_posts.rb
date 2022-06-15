@@ -8,10 +8,10 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.string :address, null: false
       t.float :latitude #緯度
       t.float :longitude #経度
-      t.integer :category, null: false
+      t.integer :category
       t.float :recommend, null: false
       t.float :clean, null: false
-      t.integer :parking, null: false
+      t.integer :parking
       t.text :detail
       t.boolean :status, null: false, default: true
 
