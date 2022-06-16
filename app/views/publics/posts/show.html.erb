@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
     <div class="col">
       <h2>投稿詳細</h2>
@@ -34,8 +34,21 @@
           </tr>
           <tr>
             <td>いいね</td>
-            <td>♡</td>
-
+            <td>
+              <% if @post.favorited_by?(current_customer) %>
+                <p>
+                  <%= link_to post_favorites_path(@post), method: :delete do %>
+                    ♥<%= @post.favorites.count %> いいね
+                  <% end %>
+                </p>
+              <% else %>
+                <p>
+                  <%= link_to post_favorites_path(@post), method: :post do %>
+                    ♡<%= @post.favorites.count %> いいね
+                  <% end %>
+                </p>
+              <% end %>
+            </td>
           </tr>
           <tr>
             <td>投稿ステータス</td>
@@ -57,25 +70,55 @@
       <%= link_to "編集", edit_post_path(@post.id), class:"btn btn-success col-3 offset-1" %>
     <% end %>
   </div>
+
+  <div class="row mt-5">
+    <div class="col-8">
+      <p>コメント数：<%= @post.comments.count %></p>
+      <% @post.comments.each do |comment| %>
+        <%= comment.customer.nickname %>
+        <%= comment.body %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %>
+        <% if comment.customer.id == current_customer.id %>
+          <% link_to "削除", post_comment_path(@post, comment), method: :delete %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-3 offset-1 mt-2">
+      <%= form_with model: [@post, @comment] do |f| %>
+        <%= f.text_area :body, placeholder: "コメント" %>
+        <%= f.submit "送信" %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 
 
 <script>
-  $('#star').raty({
+init();
+function init(){
+  if (0 < $('#star img').length) {
+    return false;
+  } else {
+
+
+    $('#star').raty({
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        scoreName: 'post[recommend]',
+        readOnly: true,
+        score: <%= @post.recommend %>,
+    });
+    $('#star-clean').raty({
       starOn: "<%= asset_path('star-on.png') %>",
       starOff: "<%= asset_path('star-off.png') %>",
-      scoreName: 'post[recommend]',
+      scoreName: 'post[clean]',
+      // 読み取り専用
       readOnly: true,
-      score: <%= @post.recommend %>,
-  });
-  $('#star-clean').raty({
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    scoreName: 'post[clean]',
-    // 読み取り専用
-    readOnly: true,
-    // 星評価の表示
-    score: <%= @post.clean %>,
-  });
+      // 星評価の表示
+      score: <%= @post.clean %>,
+    });
+
+  }
+}
 </script>

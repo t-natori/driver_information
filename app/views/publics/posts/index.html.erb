@@ -21,11 +21,7 @@
   <tbody>
     <% @posts.each do |t| %>
     <tr>
-      <td>
-        <%= link_to customer_path(t.customer.id) do %>
-          <%= t.customer.nickname %>
-        <% end %>
-      </td>
+      <td><%= t.customer.nickname %></td>
       <td>
         <%= link_to post_path(t.id) do %>
           <%= t.name %>
@@ -34,20 +30,40 @@
       <td><%= t.address %></td>
       <td><div id="star-<%= t.id %>"></div></td>
         <script>
-          $("#star-<%= t.id %>").raty({
-            starOn: "<%= asset_path('star-on.png') %>",
-            starOff: "<%= asset_path('star-off.png') %>",
-            scoreName: 'post[recommend]',
-            // 読み取り専用
-            readOnly: true,
-            // 星評価の読み込み
-            score: <%= t.recommend %>,
-          });
+
+            init();
+            function init(){
+              if (0 < $("#star-<%= t.id %> img").length) return false;
+              $("#star-<%= t.id %>").raty({
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                scoreName: 'post[recommend]',
+                // 読み取り専用
+                readOnly: true,
+                // 星評価の読み込み
+                score: <%= t.recommend %>,
+              });
+            }
+
         </script>
       <td><%= t.genre.name %></td>
-      <td>♡（数字）</td>
       <td>
-        <% if t.status == true %>
+        <% if t.favorited_by?(current_customer) %>
+          <p>
+            <%= link_to post_favorites_path(t.id), method: :delete do %>
+              ♥<%= t.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to post_favorites_path(t.id), method: :post do %>
+              ♡<%= t.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% end %>
+      </td>
+      <td>
+        <% if t.status == "release" %>
           <%= "公開" %>
         <% else %>
           <%= "非公開" %>

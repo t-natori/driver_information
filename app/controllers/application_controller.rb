@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # ユーザ登録、ログイン認証などが使われる前にconfigure_permitted_parametersメソッドを実行
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  add_flash_types :success, :info, :warning, :danger
 
   protected
 

@@ -32,9 +32,9 @@
       <div class="form-group row mx-auto">
         <%= f.label :status, "投稿ステータス", class: "col-3" %>
         <div class="textalign-center col-5">
-          <%= f.radio_button :status, "true" %>
+          <%= f.radio_button :status, true %>
           <%= f.label :status, "公開" %>
-          <%= f.radio_button :status, "false" %>
+          <%= f.radio_button :status, false %>
           <%= f.label :status, "非公開" %>
         </div>
       </div>
