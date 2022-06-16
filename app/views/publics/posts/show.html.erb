@@ -34,20 +34,10 @@
           </tr>
           <tr>
             <td>いいね</td>
-            <td>
-              <% if @post.favorited_by?(current_customer) %>
-                <p>
-                  <%= link_to post_favorites_path(@post), method: :delete do %>
-                    ♥<%= @post.favorites.count %> いいね
-                  <% end %>
-                </p>
-              <% else %>
-                <p>
-                  <%= link_to post_favorites_path(@post), method: :post do %>
-                    ♡<%= @post.favorites.count %> いいね
-                  <% end %>
-                </p>
-              <% end %>
+            <td id="favorite_buttons_<%= @post.id %>">
+
+              <%= render "publics/favorites/favorite", post: @post %>
+
             </td>
           </tr>
           <tr>
@@ -72,23 +62,14 @@
   </div>
 
   <div class="row mt-5">
-    <div class="col-8">
-      <p>コメント数：<%= @post.comments.count %></p>
-      <% @post.comments.each do |comment| %>
-        <%= comment.customer.nickname %>
-        <%= comment.body %>
-        <%= comment.created_at.strftime('%Y/%m/%d') %>
-        <% if comment.customer.id == current_customer.id %>
-          <% link_to "削除", post_comment_path(@post, comment), method: :delete %>
-        <% end %>
-      <% end %>
+    <div id="comment_form" class="col-3 mt-2">
+      <%= render "form", post: @post, comment: @comment %>
     </div>
-    <div class="col-3 offset-1 mt-2">
-      <%= form_with model: [@post, @comment] do |f| %>
-        <%= f.text_area :body, placeholder: "コメント" %>
-        <%= f.submit "送信" %>
-      <% end %>
+
+    <div id="comments_area" class="col-8 offset-1">
+      <%= render "commentlist", post: @post %>
     </div>
+
   </div>
 </div>
 

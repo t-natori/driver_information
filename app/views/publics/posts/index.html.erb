@@ -47,20 +47,8 @@
 
         </script>
       <td><%= t.genre.name %></td>
-      <td>
-        <% if t.favorited_by?(current_customer) %>
-          <p>
-            <%= link_to post_favorites_path(t.id), method: :delete do %>
-              ♥<%= t.favorites.count %> いいね
-            <% end %>
-          </p>
-        <% else %>
-          <p>
-            <%= link_to post_favorites_path(t.id), method: :post do %>
-              ♡<%= t.favorites.count %> いいね
-            <% end %>
-          </p>
-        <% end %>
+      <td id="favorite_buttons_<%= t.id %>">
+        <%= render "publics/favorites/favorite", post: t %>
       </td>
       <td>
         <% if t.status == "release" %>
