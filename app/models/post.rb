@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
 
   # アソシエーション
+  has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   belongs_to :customer
   belongs_to :genre
@@ -22,7 +23,8 @@ validates :recommend, numericality: {
 
 validates :clean, presence: true
 # validates :parking, presence: true
-validates :status, presence: true
+validates :status, inclusion: [true, false]
 
+# enum status:{release: true, unrelease: false}
 
 end
