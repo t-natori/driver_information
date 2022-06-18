@@ -9,11 +9,11 @@
       <table class="table">
   <thead>
     <tr>
-      <td>投稿者(ニックネーム)</td>
       <td>施設名</td>
       <td>住所</td>
       <td>おすすめ度</td>
       <td>ジャンル</td>
+      <td>タグ</td>
       <td>いいね</td>
       <td>投稿ステータス</td>
     </tr>
@@ -21,7 +21,7 @@
   <tbody>
     <% @posts.each do |t| %>
     <tr>
-      <td><%= t.customer.nickname %></td>
+      t.status == true
       <td>
         <%= link_to post_path(t.id) do %>
           <%= t.name %>
@@ -47,11 +47,19 @@
 
         </script>
       <td><%= t.genre.name %></td>
+
+      <td>
+        <% t.tags.each do |tag| %>
+          #<%= tag.name %><br>
+        <% end %>
+      </td>
+
+
       <td id="favorite_buttons_<%= t.id %>">
         <%= render "publics/favorites/favorite", post: t %>
       </td>
       <td>
-        <% if t.status == "release" %>
+        <% if t.status == true %>
           <%= "公開" %>
         <% else %>
           <%= "非公開" %>

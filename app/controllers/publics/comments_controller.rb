@@ -6,12 +6,11 @@ class Publics::CommentsController < ApplicationController
     @comment = current_customer.comments.new(comment_params)
     @comment.post_id = @post.id
     @comment.save
-    @post = Post.find(params[:id])
     render :comment
   end
 
   def destroy
-    @post = Post.find(params[:id]).destroy
+    @post = Post.find(params[:id]).destroy!
     @post = Post.find(params[:id])
     render :comment
   end

@@ -5,9 +5,13 @@
     </div>
   </div>
   <div class="row">
-    <div class="col">
+    <div class="col-8">
       <table class="table">
         <tbody>
+          <tr>
+            <td>投稿者</td>
+            <td colspan="2"><%= @post.customer.nickname %></td>
+          </tr>
           <tr>
             <td>施設名</td>
             <td><%= @post.name %></td>
@@ -35,9 +39,8 @@
           <tr>
             <td>タグ</td>
             <td>
-              <% @tags.each do |tag| %>
-                <%= tag.name %>
-                <%= "(#{tag.posts.count})" %>
+              <% @post.tags.each do |tag| %>
+                <span>#<%= tag.name %></span>
               <% end %>
             </td>
           </tr>
@@ -59,26 +62,27 @@
               <% end %>
             </td>
           </tr>
+          <tr>
+            <td></td>
+            <td>
+              <% if @post.customer_id == current_customer.id %>
+                <%= link_to "編集", edit_post_path(@post), class:"btn btn-success" %>
+                <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="row">
-    <%= link_to "投稿一覧", posts_path, class:"btn btn-primary col-3 offset-5" %>
-    <% if @post.customer_id == current_customer.id %>
-      <%= link_to "編集", edit_post_path(@post.id), class:"btn btn-success col-3 offset-1" %>
-    <% end %>
-  </div>
 
-  <div class="row mt-5">
-    <div id="comment_form" class="col-3 mt-2">
-      <%= render "form", post: @post, comment: @comment %>
+    <div class="col-3 offset-1">
+      <div id="comment_form">
+        <%= render "form", post: @post, comment: @comment %>
+      </div>
+      <div id="comments_area" class="mt-4" style="height: 450px; overflow: scroll;">
+        <%= render "commentlist", post: @post %>
+      </div>
     </div>
-    
-    <div id="comments_area" class="col-8 offset-1">
-      <%= render "commentlist", post: @post %>
-    </div>
-
   </div>
 </div>
 
