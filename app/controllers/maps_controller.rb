@@ -3,5 +3,6 @@ class MapsController < ApplicationController
   end
 
   def index
+    @post = Post.new
   end
 end

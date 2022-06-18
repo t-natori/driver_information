@@ -9,8 +9,12 @@ class Publics::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
-    if @post.save!
-      redirect_to post_path(@post.id), notice: "投稿が登録されました"
+
+    tag_list = params[:post][:name].split(',')
+
+    if @post.save
+      @post.save_tag(tag_list)
+      redirect_to post_path(@post), notice: "投稿が登録されました"
     else
       @post = Post.new
       @genre = Genre.all
@@ -20,11 +24,13 @@ class Publics::PostsController < ApplicationController
 
   def index
     @posts = Post.all
+
   end
 
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
+    @tags = @post.tags
   end
 
   def destroy

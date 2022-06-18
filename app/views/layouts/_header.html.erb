@@ -18,12 +18,25 @@
           <ul class="navbar-nav ml-auto">
             <!--会員ログイン時-->
             <li class="mx-3 text-center">
+              <i class="fa-solid fa-user"></i>
               会員名(ニックネーム)<br>
               <strong><%= current_customer.nickname %></strong>
             </li>
-            <li class="mx-3"><%= link_to '新規投稿', new_post_path, class: 'btn btn-outline-success nav-link text-dark' %></li>
-            <li class="mx-3"><%= link_to '　MAP　', index_path, class: 'btn btn-outline-primary nav-link text-dark' %></li>
-            <li class="mx-3"><%= link_to '投稿一覧', posts_path, class: 'btn btn-outline-primary nav-link text-dark' %></li>
+            <li class="mx-3">
+              <%= link_to new_post_path, class: 'btn btn-outline-success nav-link text-dark' do %>
+                <i class="fa-solid fa-pen-line"></i>新規投稿
+              <% end %>
+            </li>
+            <li class="mx-3">
+              <%= link_to index_path, class: 'btn btn-outline-primary nav-link text-dark' do %>
+                <i class="fa-solid fa-map-location-dot"></i>MAP
+              <% end %>
+            </li>
+            <li class="mx-3">
+              <%= link_to posts_path, class: 'btn btn-outline-primary nav-link text-dark' do %>
+                <i class="fa-solid fa-memo"></i>投稿一覧
+              <% end %>
+            </li>
             <li class="mx-3"><%= link_to 'マイページ', customer_path(current_customer.id), class: 'btn btn-outline-info nav-link text-dark' %></li>
             <li class="mx-3"><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: 'btn btn-outline-danger nav-link text-dark' %></li>
           </ul>
@@ -31,7 +44,6 @@
           <ul class="navbar-nav ml-auto">
           <!--ログアウト時-->
             <li class="mx-3"><%= link_to '　MAP　', index_path, class: 'btn btn-outline-primary nav-link text-dark' %></li>
-            <li class="mx-3"><%= link_to '投稿一覧', posts_path, class: 'btn btn-outline-primary nav-link text-dark' %></li>
             <li class="mx-3"><%= link_to '新規登録', new_customer_registration_path, class: 'btn btn-outline-primary nav-link text-dark' %></li>
             <li class="mx-3"><%= link_to 'ログイン', new_customer_session_path, class: 'btn btn-outline-primary nav-link text-dark' %></li>
           </ul>
