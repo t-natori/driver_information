@@ -6,6 +6,19 @@
   </div>
   <div class="row">
     <div class="col">
+      <%= form_with model: @post, local: true do |f| %>
+        <div class="actions">
+          <%= f.label :body,"内容" %>
+          <%= f.text_field :body %>
+          <%= f.label :latitude,"緯度" %>
+          <%= f.text_field :latitude, id: :lat %>
+          <%= f.label :longitude,"経度" %>
+          <%= f.text_field :longitude, id: :lng %>
+          <%= f.submit %>
+        </div>
+      <% end %>
+
+
 
 
       <div>
@@ -21,7 +34,7 @@
 </div>
 
 
-
+<!--マップの大きさ-->
 <style>
 #map {
   margin: auto;
@@ -31,26 +44,29 @@
 </style>
 
 <script>
+// 初期マップの設定
 let map
-
 function initMap(){
   geocoder = new google.maps.Geocoder()
-
+// 指定した座標をマップの中心にする、ズーム度
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.6896067, lng: 139.7005713},
-    zoom: 12,
+    zoom: 15,
   });
-
+// 指定した座標にピンを指す
   marker = new google.maps.Marker({
     position:  {lat: 35.6896067, lng: 139.7005713},
     map: map
   });
 }
 
+// 検索後のマップ
 let geocoder
 const display = document.getElementById('display')
 
+// 検索ボタンを押すと実行する
 function codeAddress(){
+  // 検索した内容を取得
   let inputAddress = document.getElementById('address').value;
 
 // 　前のピンを消す
@@ -60,6 +76,7 @@ function codeAddress(){
 		  marker = null;
 //   ここまで
   geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+     //該当する検索結果がヒットした時に、地図の中心を検索結果の緯度経度に更新する
     if (status == 'OK') {
       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({

@@ -33,6 +33,15 @@
             <td><%= @post.detail %></td>
           </tr>
           <tr>
+            <td>タグ</td>
+            <td>
+              <% @tags.each do |tag| %>
+                <%= tag.name %>
+                <%= "(#{tag.posts.count})" %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
             <td>いいね</td>
             <td id="favorite_buttons_<%= @post.id %>">
 
@@ -65,7 +74,7 @@
     <div id="comment_form" class="col-3 mt-2">
       <%= render "form", post: @post, comment: @comment %>
     </div>
-
+    
     <div id="comments_area" class="col-8 offset-1">
       <%= render "commentlist", post: @post %>
     </div>
