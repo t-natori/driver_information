@@ -1,12 +1,13 @@
+
 <div class="container">
-  <div class="row">
+  <div class="row text-center bg-secondary p-2 text-white mb-5">
     <div class="col">
       <h2><strong>ジャンル一覧</strong></h2>
     </div>
   </div>
   <p id="notice"><%= notice %></p>
-  <div class="row mt-10" style="d-flex ">
-    <div class="col-3" style="background-color: yellow;">
+  <div class="row"  style="background-color: lightblue;">
+    <div class="col-3">
       <h3><strong>新規作成</strong></h3>
       <%= form_with model: @genre, url: admins_genres_path do |f| %>
         <%= f.label :name, "ジャンル名" %><br>
@@ -14,7 +15,7 @@
         <%= f.submit "作成" %>
       <% end %>
     </div>
-    <div class="col-8 offset-1" style="background-color: orange;">
+    <div class="col-8 offset-1">
       <table class="table">
         <thead>
           <tr>

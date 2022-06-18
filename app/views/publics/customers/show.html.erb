@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container">
   <div class="row">
     <div class="col-6 offset-3">
       <h2 class="bg-info text-white d-block text-center">
@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-3 table" style="background-color: pink;">
+    <div class="col-2 table" style="background-color: pink;">
       <h4 class="text-center mt-2"><strong>ユーザー情報</strong></h4>
       <div>
         <label>氏名</label><br>
@@ -45,64 +45,14 @@
       </div><br>
       <% if @customer.name != "guestcustomer" %>
         <%= link_to "ユーザー編集", edit_customer_path(@customer.id), class:"btn btn-success btn-block mt-3 mb-2" %>
+        <%= link_to "退会する", quit_path, class:"btn btn-danger btn-block mt-3 mb-2" %>
       <% end %>
-      <%= link_to "退会する", class:"btn btn-danger btn-block mt-3 mb-2" %>
     </div>
-    <div class="col-9" style="background-color: orange;">
+    <div class="col-10" style="background-color: orange;">
       <h4 class="text-center mt-2">
         <strong>投稿一覧</strong>
       </h4>
-      <table class="table">
-  <thead>
-    <tr>
-      <td>施設名</td>
-      <td>住所</td>
-      <td>おすすめ度</td>
-      <td>ジャンル</td>
-      <td>いいね</td>
-      <td>投稿ステータス</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @posts.present? %>
-      <% @posts.each do |t| %>
-        <tr>
-          <td>
-            <%= link_to post_path(t.id) do %>
-              <%= t.name %>
-            <% end %>
-          </td>
-          <td><%= t.address %></td>
-          <td><div id="star-<%= t.id %>"></div></td>
-            <script>
-              $("#star-<%= t.id %>").raty({
-                starOn: "<%= asset_path('star-on.png') %>",
-                starOff: "<%= asset_path('star-off.png') %>",
-                scoreName: 'post[recommend]',
-                // 読み取り専用
-                readOnly: true,
-                // 星評価の読み込み
-                score: <%= t.recommend %>,
-              });
-            </script>
-          <td><%= t.genre.name %></td>
-          <td>♡（数字）</td>
-          <td>
-            <% if t.status == true %>
-              <%= "公開" %>
-            <% else %>
-              <%= "非公開" %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-    <tr>
-      <td>投稿はまだありません</td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+      <%= render "publics/posts/post_index", posts: @posts %>
     </div>
   </div>
 </div>

@@ -1,14 +1,14 @@
 <div class="container">
-  <div class="row">
+  <div class="row text-center bg-secondary p-2 text-white mb-5">
     <div class="col">
       <h2><strong>ジャンル編集</strong></h2>
     </div>
   </div>
-  <div class="row">
+  <div class="row" style="background-color: lightblue;">
     <div class="col-6 offset-3">
       <table class="table">
         <tbody>
-          <%= form_with model: @genre, url: admins_genre_path, method: :patch do |f| %>
+          <%= form_with model: @genre, url: admins_genre_path(@genre), method: :patch do |f| %>
           <tr>
             <td>ジャンルID</td>
             <td><%= @genre.id %></td>

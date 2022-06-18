@@ -5,7 +5,7 @@ class Admins::GenresController < ApplicationController
   end
 
   def create
-    @genre = Genre.find(params[:id])
+    @genre = Genre.new(genre_params)
     if @genre.save
       redirect_to admins_genres_path, notice: "ジャンルが作成されました"
     else
