@@ -1,14 +1,14 @@
-<div class="container mt-5">
-  <div class="row">
+<div class="container">
+  <div class="row text-center bg-secondary p-2 text-white mb-5">
     <div class="col">
-      <h2><strong>”<%= @customer.name %>”さんの情報編集</strong></h2>
+      <h2><strong><%= @customer.name %>さんの情報編集</strong></h2>
     </div>
   </div>
   <div class="row" style="background-color: lightblue;">
     <div class="col-6 offset-3">
       <table class="table">
         <tbody>
-          <%= form_with model: @customer, url: admins_customer_path, method: :patch do |f| %>
+          <%= form_with model: @customer, url: admins_customer_path(@customer), method: :patch do |f| %>
           <tr>
             <td>会員ID</td>
             <td><%= @customer.id %></td>
@@ -44,7 +44,7 @@
           </tr>
           <tr>
             <td></td>
-            <td><%= f.submit "更新", class:"btn btn-success" %></td>
+            <td><%= f.submit "変更", class:"btn btn-success" %></td>
           </tr>
           <% end %>
         </tbody>

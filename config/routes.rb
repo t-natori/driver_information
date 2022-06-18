@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   scope module: :publics do
     resources :customers, only: [:show, :edit, :update]
+    get 'quit' => 'customers#quit'
+    patch 'out' => 'customers#out'
     resources :posts, only: [:new, :create, :index, :show, :destroy, :edit, :update] do
       resource :favorites, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
