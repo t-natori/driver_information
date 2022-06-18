@@ -9,11 +9,7 @@ class Publics::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
-
-    tag_list = params[:post][:name].split(',')
-
     if @post.save
-      @post.save_tag(tag_list)
       redirect_to post_path(@post), notice: "投稿が登録されました"
     else
       @post = Post.new
@@ -24,7 +20,6 @@ class Publics::PostsController < ApplicationController
 
   def index
     @posts = Post.all
-
   end
 
   def show
@@ -34,6 +29,14 @@ class Publics::PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
+    if @post.destroy
+      redirect_to posts_path
+    else
+      @comment = Comment.new
+      @tags = @posts.tags
+      render :show
+    end
 
   end
 
@@ -54,7 +57,7 @@ class Publics::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:name, :address, :category, :recommend, :genre_id, :clean, :parking, :detail, :status)
+    params.require(:post).permit(:name, :address, :category, :recommend, :genre_id, :clean, :detail, :status, tag_ids: [])
   end
 
 

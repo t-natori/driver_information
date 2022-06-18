@@ -20,7 +20,14 @@ Genre.create!(
     ]
   )
 
-  Admin.create!(
-    email: "test@admin",
-    password: "testadmin"
-    )
+Admin.create!(
+  email: "test@admin",
+  password: "testadmin"
+  )
+
+Tag.create([
+  { name: "路上駐車" },
+  { name: "(近くに)有料駐車場" },
+  { name: "無料駐車場" },
+  { name: "大型可" },
+])
