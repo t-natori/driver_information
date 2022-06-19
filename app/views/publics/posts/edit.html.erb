@@ -1,36 +1,38 @@
-<div class="container mt-3 mt-5">
-  <div class="row mb-4">
-    <div class="col-3">
-      <h2 class="bg-info text-white d-block text-center"><strong>会員情報編集</strong></h2>
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>投稿編集</strong>
+      </h2>
     </div>
   </div>
     <%= form_with model: @post, url: post_path(@post.id) do |f| %>
       <div class="form-group row mx-auto">
-        <%= f.label :name, "施設名", class:"col-3"%>
+        <%= f.label :name, "施設名", class:"col-3 offset-1"%>
         <%= f.text_field :name, class:"col-5" %>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :address, "住所", class:"col-3" %>
+        <%= f.label :address, "住所", class:"col-3 offset-1" %>
         <%= f.text_field :address, class:"col-5" %>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :recommend, "おすすめ度", class:"col-3" %>
+        <%= f.label :recommend, "おすすめ度", class:"col-3 offset-1" %>
         <div id="star" class="col-5"></div>
       </div><br>
       <div>
-        <%= f.label :genre, "ジャンル", class:"col-3" %>
+        <%= f.label :genre, "ジャンル", class:"col-3 offset-1" %>
         <%= @post.genre.name %>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :clean, " 清潔度", class:"col-3" %>
+        <%= f.label :clean, " 清潔度", class:"col-3 offset-1" %>
         <div id="star-clean" class="col-5"></div>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :detail, "詳細説明", class:"col-3" %>
+        <%= f.label :detail, "詳細説明", class:"col-3 offset-1" %>
         <%= f.text_field :detail, class:"col-5" %>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :status, "投稿ステータス", class:"col-3" %>
+        <%= f.label :status, "投稿ステータス", class:"col-3 offset-1" %>
         <div class="textalign-center col-5">
           <%= f.radio_button :status, true %>
           <%= f.label :status, "公開" %>
@@ -39,10 +41,8 @@
         </div>
       </div><br>
       <div class="row">
-        <div class="col-4 offset-3">
-          <%= f.submit "更新", class:"btn btn-success btn-block" %>
-        </div>
-        <div class="col-4 ml-2">
+        <div class="col-5 offset-3 d-flex justify-content-around">
+          <%= f.submit "更新", class:"btn btn-success" %>
           <%= link_to "戻る", post_path(@post), class:"btn btn-primary" %>
         </div>
       </div>
@@ -54,20 +54,30 @@
 
 
 <script>
-  $('#star').raty({
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    scoreName: 'post[recommend]',
-    // 編集画面で星評価も変更できるようにするためコメントアウト
-    // readOnly: true,
-    // 星評価の読み込み
-    score: <%= @post.recommend %>,
-  });
-  $('#star-clean').raty({
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    scoreName: 'post[clean]',
-    // readOnly: true,
-    score: <%= @post.clean %>,
-  });
+init();
+function init(){
+  if (0 < $('#star img').length) {
+    return false;
+  } else {
+
+
+    $('#star').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[recommend]',
+      // 編集画面で星評価も変更できるようにするためコメントアウト
+      // readOnly: true,
+      // 星評価の読み込み
+      score: <%= @post.recommend %>,
+    });
+    $('#star-clean').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[clean]',
+      // readOnly: true,
+      score: <%= @post.clean %>,
+    });
+
+  }
+}
 </script>

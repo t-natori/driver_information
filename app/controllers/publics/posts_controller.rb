@@ -1,5 +1,6 @@
 class Publics::PostsController < ApplicationController
-  before_action :authenticate_customer!,except:  [:index, :show]
+  before_action :authenticate_customer!,except: [:index, :show]
+  before_action :ensure_customer, only: [:edit]
 
   def new
     @post = Post.new
@@ -19,7 +20,7 @@ class Publics::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all.page(params[:page]).per(7)
   end
 
   def show
@@ -47,7 +48,7 @@ class Publics::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), notice: "投稿内容が変更されました"
     else
       render :edit
     end
@@ -60,5 +61,11 @@ class Publics::PostsController < ApplicationController
     params.require(:post).permit(:name, :address, :category, :recommend, :genre_id, :clean, :detail, :status, tag_ids: [])
   end
 
+  def ensure_customer
+    @post = Post.find(params[:id])
+    if @post.customer != current_customer
+      redirect_to posts_path, notice: "このページには遷移できません"
+    end
+  end
 
 end
