@@ -1,15 +1,13 @@
-<div class="container mt-3 ml-5">
-  <div class="row">
-    <div class="col-6 offset-3">
+<div class="container">
+  <div class="row text-center bg-secondary text-white p-2 mb-5">
+    <div class="col-3 offset-1">
       <h2 class="bg-info text-white d-block text-center">
-        <strong>
-          <%= "会員情報編集" %>
-        </strong>
+        <strong><%= "会員情報編集" %></strong>
       </h2>
     </div>
   </div>
-  <div class="row">
-    <div class="col-8 offset-2 p-5" style="background-color: lightblue;">
+  <div class="row text-center p-3" style="background-color: lightblue;">
+    <div class="col text-center">
       <%= form_with model: @customer, url: customer_path do |f| %>
         <div class="form-group row mx-auto">
           <%= f.label :name, "氏名", class: "col-3" %>
@@ -38,5 +36,5 @@
         </div>
       <% end %>
     </div>
-    </div>
+  </div>
 </div>

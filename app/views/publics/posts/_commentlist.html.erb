@@ -1,8 +1,8 @@
 <strong>コメント数：<%= post.comments.count %></strong>
 <% post.comments.each do |comment| %>
   <div>
-    <strong><%= comment.id %>. </strong>
-    <%= comment.customer.nickname %><br>
+    <strong>"<%= comment.customer.nickname %>"</strong>
+    <br>
     <%= comment.body %><br>
     <%= comment.created_at.strftime('%Y/%m/%d') %>
     <% if comment.customer == current_customer %>

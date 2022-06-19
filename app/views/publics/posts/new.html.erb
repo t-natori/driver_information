@@ -1,33 +1,35 @@
-<div class="container mt-3 ml-5">
-  <div class="row mb-4">
-    <div class="col-3">
-      <h2 class="bg-info text-white d-block text-center">新規投稿</h2>
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>新規投稿</strong>
+      </h2>
     </div>
   </div>
     <%= form_with model: @post do |f| %>
       <div class="form-group row mx-auto">
-        <%= f.label :name, "施設名", class: "col-3" %>
-        <%= f.text_field :name, class: "col-5" %>
-      </div>
+        <%= f.label :name, "施設名", class: "col-3 offset-1" %>
+        <%= f.text_field :name, placeholder: "(例:セブンイレブン○○店)", class: "col-5" %>
+      </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :address, "住所", class: "col-3" %>
+        <%= f.label :address, "住所", class: "col-3 offset-1" %>
         <%= f.text_field :address, class: "col-5" %>
-      </div>
+      </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :recommend, "おすすめ度", class: "col-3" %>
+        <%= f.label :recommend, "おすすめ度", class: "col-3 offset-1" %>
         <div id="star" class: "col-5"></div>
-      </div>
+      </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :genre_id, "ジャンル", class: "col-3" %>
+        <%= f.label :genre_id, "ジャンル", class: "col-3 offset-1" %>
         <%= f.select :genre_id, options_from_collection_for_select(@genre, :id, :name), class: "col-5" %>
-      </div>
+      </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :clean, "清潔度", class: "col-3" %>
+        <%= f.label :clean, "清潔度", class: "col-3 offset-1" %>
         <div id="star-clean" class: "col-5"></div>
-      </div>
+      </div><br>
       <!--タグのチェックボックス-->
-      <div class="check_box row mx-auto">
-        <%= f.label :tag_ids, "駐車場タグ", class: "col-3" %>
+      <div class="check_box row mx-auto mb-3">
+        <%= f.label :tag_ids, "駐車場タグ", class: "col-3 offset-1" %>
         <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
         <div>
           <%= tag.label do %>
@@ -36,21 +38,21 @@
           <% end %>
         </div>
         <% end %>
-      </div>
+      </div><br>
       <!--ここまで-->
       <div class="form-group row mx-auto">
-        <%= f.label :detail, "詳細説明", class: "col-3" %>
-        <%= f.text_area :detail, class: "col-5" %>
-      </div>
+        <%= f.label :detail, "詳細説明", class: "col-3 offset-1" %>
+        <%= f.text_area :detail, placeholder: "(例:ウォシュレットあり)", class: "col-5" %>
+      </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :status, "投稿ステータス", class: "col-3" %>
+        <%= f.label :status, "投稿ステータス", class: "col-3 offset-1" %>
         <div class="textalign-center col-5">
           <%= f.radio_button :status, true %>
           <%= f.label :status, "公開" %>
           <%= f.radio_button :status, false %>
           <%= f.label :status, "非公開" %>
         </div>
-      </div>
+      </div><br>
       <div class="row">
         <div class="col-5 offset-3">
           <%= f.submit "投稿", class:"btn btn-success btn-block" %>

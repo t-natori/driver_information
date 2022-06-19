@@ -1,12 +1,31 @@
 <div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>投稿一覧</strong>
+      </h2>
+    </div>
+    <div class="col-2 offset-3 mt-3"><%= "タグ絞り込み:" %></div>
+    <div class="col-2 mt-3">
+      <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+        <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                       {
+                         prompt: 'すべて表示',
+                         onchange: 'submit(this.form);'
+                       }
+        %>
+      <% end %>
+    </div>
+  </div>
+  <p id="notice"><%= notice %></p>
   <div class="row">
     <div class="col">
-      <h2><strong>投稿一覧</strong></h2>
+      <%= render "post_index", posts: @posts %>
     </div>
   </div>
   <div class="row">
-    <div class="col">
-      <%= render "post_index" posts: @posts %>
+    <div class="col-4 offset-5">
+      <%= paginate @posts %>
     </div>
   </div>
 </div>

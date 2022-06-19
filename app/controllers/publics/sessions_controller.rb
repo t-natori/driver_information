@@ -3,7 +3,7 @@
 class Publics::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :relect_customer, only: [:create]
+  before_action :reject_customer, only: [:create]
 
   def after_sign_in_path_for(resource)
     root_path
@@ -26,11 +26,11 @@ class Publics::SessionsController < Devise::SessionsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 
-  def relect_customer
+  def reject_customer
     @customer = Customer.find_by(email: params[:customer][:email])
     if @customer
       if @customer.valid_password?(params[:customer][:password]) && @customer.status == false
-        redirect_to new_customer_registration_path, notice: "退会済みです。再度ご登録をしてください。"
+        redirect_to new_customer_registration_path, notice: "退会済みです。再度ご登録してください。"
       end
     end
   end

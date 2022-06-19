@@ -1,9 +1,12 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col">
-      <h2>投稿詳細</h2>
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>投稿詳細</strong>
+        </h2>
     </div>
   </div>
+  <p id="notice"><%= notice %></p>
   <div class="row">
     <div class="col-8">
       <table class="table">
@@ -34,7 +37,13 @@
           </tr>
           <tr>
             <td>詳細説明</td>
-            <td><%= @post.detail %></td>
+            <td>
+              <% if @post.detail.present? %>
+                <%= @post.detail %>
+              <% else %>
+                <%= "詳細説明はありません" %>
+              <% end %>
+            </td>
           </tr>
           <tr>
             <td>タグ</td>
@@ -66,8 +75,8 @@
             <td></td>
             <td>
               <% if @post.customer_id == current_customer.id %>
-                <%= link_to "編集", edit_post_path(@post), class:"btn btn-success" %>
-                <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger" %>
+                <%= link_to "編集", edit_post_path(@post), class:"btn btn-success mr-5" %>
+                <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger ml-5" %>
               <% end %>
             </td>
           </tr>
@@ -80,7 +89,7 @@
         <%= render "form", post: @post, comment: @comment %>
       </div>
       <div id="comments_area" class="mt-4" style="height: 450px; overflow: scroll;">
-        <%= render "commentlist", post: @post %>
+        <%= render "publics/posts/commentlist", post: @post %>
       </div>
     </div>
   </div>

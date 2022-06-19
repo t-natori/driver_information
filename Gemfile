@@ -65,6 +65,6 @@ group :production do
 end
 
 gem 'devise'
-# gem 'kaminari','~> 1.2.1'
+gem 'kaminari','~> 1.2.1'
 # gem 'gmaps4rails'
 gem 'dotenv-rails'

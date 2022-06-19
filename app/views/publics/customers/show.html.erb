@@ -1,13 +1,18 @@
 <div class="container">
-  <div class="row">
-    <div class="col-6 offset-3">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
       <h2 class="bg-info text-white d-block text-center">
-        <strong>
-          <%= "マイページ" %>
-        </strong>
+        <strong>マイページ</strong>
       </h2>
     </div>
+    <div class="col-2 offset-3 mt-3"><%= "タグ絞り込み:" %></div>
+    <div class="col-2 mt-3">
+      <%= form_tag customer_path, method: :get, class: 'boards__searchForm' do %>
+        <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]), { prompt: 'すべて表示', onchange: 'submit(this.form);' } %>
+      <% end %>
+    </div>
   </div>
+  <p id="notice"><%= notice %></p>
   <div class="row mt-4">
     <div class="col-2 table" style="background-color: pink;">
       <h4 class="text-center mt-2"><strong>ユーザー情報</strong></h4>
