@@ -1,94 +1,90 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h2><strong>投稿一覧MAP</strong></h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <%= form_with model: @post, local: true do |f| %>
-        <div class="actions">
-          <%= f.label :body,"内容" %>
-          <%= f.text_field :body %>
-          <%= f.label :latitude,"緯度" %>
-          <%= f.text_field :latitude, id: :lat %>
-          <%= f.label :longitude,"経度" %>
-          <%= f.text_field :longitude, id: :lng %>
-          <%= f.submit %>
-        </div>
-      <% end %>
 
+<h2>MAP</h2>
 
+<input id="address" type="textbox" value="">
+<input type="button" value="検索" onclick="codeAddress()">
 
+<div id='map' class="mb-5"></div>
 
-      <div>
-        <input id="address" type="textbox" value="">
-        <input type="button" value="検索" onclick="codeAddress()">
-      </div>
-      <div id="display">何かが表示される、、、、！</div>
-
-      <div id='map'></div>
-
-    </div>
-  </div>
-</div>
-
-
-<!--マップの大きさ-->
+<!--マップのサイズ-->
 <style>
-#map {
-  margin: auto;
-  height: 500px;
-  width: 95%;
-}
+  #map {
+    height: 600px;
+    width: 95%;
+    margin: auto;
+  }
 </style>
 
+
+
+
 <script>
-// 初期マップの設定
 let map
+let geocoder
+
+const display = document.getElementById('display')
+
 function initMap(){
   geocoder = new google.maps.Geocoder()
-// 指定した座標をマップの中心にする、ズーム度
+
   map = new google.maps.Map(document.getElementById('map'), {
+    //latが緯度、lngが経度
     center: {lat: 35.6896067, lng: 139.7005713},
+    //ズーム度(数字が大きければよりズームする)
     zoom: 15,
+
   });
-// 指定した座標にピンを指す
+
+  //positionで指定した座標にピンを指す
   marker = new google.maps.Marker({
     position:  {lat: 35.6896067, lng: 139.7005713},
     map: map
+    // draggable: true // ドラッグ可能にする
   });
+
+  //複数マーカー ここから
+      <% @posts.each do |post|%>
+        ( function() {
+          let markerLatLng = new google.maps.LatLng({lat: <%= post.latitude %>, lng: <%= post.longitude %>}); // 緯度経度のデータ作成
+          let marker = new google.maps.Marker({
+            position: markerLatLng,
+            map: map
+          });
+    　　　//マーカーをクリックしたとき、詳細情報を表示
+          let infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "<a href='<%= post_url(post.id) %>' target='_blank'><%= post.name %></a>"
+          }); //ここで詳細ページへのリンクを表示させる
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+       })();
+      <% end %>
+      //複数マーカー ここまで
+
 }
 
-// 検索後のマップ
-let geocoder
-const display = document.getElementById('display')
 
-// 検索ボタンを押すと実行する
+
+// codeAddress()の定義
 function codeAddress(){
-  // 検索した内容を取得
   let inputAddress = document.getElementById('address').value;
 
-// 　前のピンを消す
-  if(marker != null){
-		    marker.setMap(null);
-		  }
-		  marker = null;
-//   ここまで
   geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-     //該当する検索結果がヒットした時に、地図の中心を検索結果の緯度経度に更新する
+    //該当する検索結果がヒットした時に、地図の中心を検索結果の緯度,経度に更新する
     if (status == 'OK') {
       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location
       });
-       display.textContent = "検索結果：" + results[ 0 ].geometry.location
-    } else {
+    } else {//検索結果が何もなかった場合に下を表示
       alert('該当する結果がありませんでした：' + status);
     }
   });
 }
 
 </script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["API_KEY"] %>&callback=initMap" async defer></script>

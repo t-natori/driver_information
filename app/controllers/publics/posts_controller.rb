@@ -58,7 +58,7 @@ class Publics::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:name, :address, :category, :recommend, :genre_id, :clean, :detail, :status, tag_ids: [])
+    params.require(:post).permit(:name, :address, :category, :recommend, :genre_id, :clean, :detail, :latitude, :longitude, :status, tag_ids: [])
   end
 
   def ensure_customer
