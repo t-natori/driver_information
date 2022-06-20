@@ -1,2 +1,131 @@
-<h1>Publics::Posts#show</h1>
-<p>Find me in app/views/publics/posts/show.html.erb</p>
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>投稿詳細</strong>
+        </h2>
+    </div>
+  </div>
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="col-8">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>投稿者</td>
+            <td colspan="2"><%= @post.customer.nickname %></td>
+          </tr>
+          <tr>
+            <td>緯度,経度</td>
+            <td><%= @post.latitude %>,<%= @post.longitude %></td>
+          </tr>
+          <tr>
+            <td>施設名</td>
+            <td><%= @post.name %></td>
+          </tr>
+          <tr>
+            <td>住所</td>
+            <td><%= @post.address %></td>
+          </tr>
+          <tr>
+            <td>おすすめ度</td>
+            <td><div id="star"></div></td>
+          </tr>
+          <tr>
+            <td>ジャンル</td>
+            <td><%= @post.genre.name %></td>
+          </tr>
+          <tr>
+            <td>清潔度</td>
+            <td><div id="star-clean"></div></td>
+          </tr>
+          <tr>
+            <td>詳細説明</td>
+            <td>
+              <% if @post.detail.present? %>
+                <%= @post.detail %>
+              <% else %>
+                <%= "詳細説明はありません" %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>タグ</td>
+            <td>
+              <% @post.tags.each do |tag| %>
+                <span>#<%= tag.name %></span>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>いいね</td>
+            <td id="favorite_buttons_<%= @post.id %>">
+
+              <%= render "publics/favorites/favorite", post: @post %>
+
+            </td>
+          </tr>
+          <tr>
+            <td>投稿ステータス</td>
+            <td>
+              <% if @post.status == true %>
+                <%= "公開" %>
+              <% elsif @post.status == false %>
+                <%= "非公開" %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <% if @post.customer_id == current_customer.id %>
+                <%= link_to "編集", edit_post_path(@post), class:"btn btn-success mr-5" %>
+                <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger ml-5" %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-3 offset-1">
+      <div id="comment_form">
+        <%= render "form", post: @post, comment: @comment %>
+      </div>
+      <div id="comments_area" class="mt-4" style="height: 450px; overflow: scroll;">
+        <%= render "publics/posts/commentlist", post: @post %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+init();
+function init(){
+  if (0 < $('#star img').length) {
+    return false;
+  } else {
+
+
+    $('#star').raty({
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        scoreName: 'post[recommend]',
+        readOnly: true,
+        score: <%= @post.recommend %>,
+    });
+    $('#star-clean').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[clean]',
+      // 読み取り専用
+      readOnly: true,
+      // 星評価の表示
+      score: <%= @post.clean %>,
+    });
+
+  }
+}
+</script>

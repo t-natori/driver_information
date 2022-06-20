@@ -31,7 +31,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  
+
     # ここに移動
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -65,5 +65,6 @@ group :production do
 end
 
 gem 'devise'
-# gem 'kaminari','~> 1.2.1'
+gem 'kaminari','~> 1.2.1'
 # gem 'gmaps4rails'
+

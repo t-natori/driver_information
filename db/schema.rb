@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_11_100135) do
+ActiveRecord::Schema.define(version: 2022_06_17_102728) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -40,8 +40,9 @@ ActiveRecord::Schema.define(version: 2022_06_11_100135) do
     t.datetime "remember_created_at"
     t.string "name"
     t.string "name_kana"
-    t.string "nickname"
+    t.string "nickname", null: false
     t.string "phone_number"
+    t.boolean "status", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
@@ -61,19 +62,39 @@ ActiveRecord::Schema.define(version: 2022_06_11_100135) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "post_tags", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
+    t.index ["post_id"], name: "index_post_tags_on_post_id"
+    t.index ["tag_id"], name: "index_post_tags_on_tag_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "genre_id"
     t.string "name", null: false
     t.string "address", null: false
-    t.integer "type", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "category"
     t.float "recommend", null: false
     t.float "clean", null: false
-    t.integer "parking", null: false
+    t.integer "parking"
     t.text "detail"
-    t.boolean "status", null: false
+    t.boolean "status", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+  end
+
+  add_foreign_key "post_tags", "posts"
+  add_foreign_key "post_tags", "tags"
 end

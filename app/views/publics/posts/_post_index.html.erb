@@ -1,0 +1,63 @@
+<table class="table">
+        <thead>
+          <tr>
+            <th>施設名</th>
+            <th>住所</th>
+            <th>おすすめ度</th>
+            <th>ジャンル</th>
+            <th>タグ</th>
+            <th>いいね</th>
+            <th>投稿ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% posts.each do |t| %>
+          <tr>
+            <td>
+              <%= link_to post_path(t.id) do %>
+                <%= t.name %>
+              <% end %>
+            </td>
+            <td><%= t.address %></td>
+            <td><div id="star-<%= t.id %>"></div></td>
+              <script>
+      
+                  init();
+                  function init(){
+                    if (0 < $("#star-<%= t.id %> img").length) return false;
+                    $("#star-<%= t.id %>").raty({
+                      starOn: "<%= asset_path('star-on.png') %>",
+                      starOff: "<%= asset_path('star-off.png') %>",
+                      scoreName: 'post[recommend]',
+                      // 読み取り専用
+                      readOnly: true,
+                      // 星評価の読み込み
+                      score: <%= t.recommend %>,
+                    });
+                  }
+      
+              </script>
+            <td><%= t.genre.name %></td>
+      
+            <td>
+              <% t.tags.each do |tag| %>
+                #<%= tag.name %><br>
+              <% end %>
+            </td>
+      
+      
+            <td id="favorite_buttons_<%= t.id %>">
+              <%= render "publics/favorites/favorite", post: t %>
+            </td>
+            <td>
+              <% if t.status == true %>
+                <%= "公開" %>
+              <% else %>
+                <%= "非公開" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="text-center"></div>

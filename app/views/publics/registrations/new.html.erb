@@ -1,61 +1,51 @@
-<div class="container" style="margin: 50px auto;">
-  <div class="row">
-    <div class="col-6 offset-3">
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3">
       <h2 class="bg-info text-white d-block text-center">新規会員登録</h2>
     </div>
   </div>
-  <div class="row" style="background-color: lightblue; margin: 40px 0;">
-    <div class="col-6 offset-3">
+  <p id="notice"><%= notice %></p>
+    <div class="p-5" style="background-color: lightblue;">
       <%= form_with model: @customer, url: customer_registration_path do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-        <table class="table table-borderless" style="margin-top: 20px;">
-          <tbody>
-            <tr class="field">
-              <td><%= f.label :name, "氏名" %></td>
-              <td><%= f.text_field :name, autofocus: true, autocomplete: "name" %></td>
-            </tr>
-            <tr class="field">
-              <td><%= f.label :name_kana, "氏名（カナ）" %></td>
-              <td><%= f.text_field :name_kana, autocomplete: "name_kana" %></td>
-            </tr>
-            <tr class="field">
-              <td><%= f.label :nickname, "ニックネーム"%></td>
-              <td><%= f.text_field :nickname, autocomplete: "nickname" %></td>
-            </tr>
-            <tr class="field">
-              <td><%= f.label :email, "メールアドレス" %></td>
-              <td><%= f.email_field :email, autocomplete: "email" %></td>
-            </tr>
-            <tr class="field">
-              <td><%= f.label :phone_number, "電話番号" %></td>
-              <td><%= f.telephone_field :phone_number, autocomplete: "phone_number" %></td>
-            </tr>
-            <tr class="field">
-              <td>
-                <%= f.label :password, "パスワード" %>
-                <% if @minimum_password_length %>
-                <em>(<%= @minimum_password_length %> 文字以上)</em>
-                <% end %>
-              </td>
-              <td><%= f.password_field :password, autocomplete: "new-password" %></td>
-            </tr>
-            <tr class="field">
-              <td><%= f.label :password_confirmation, "パスワード（確認用）" %></td>
-              <td><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
-            </tr>
-            <tr class="actions">
-              <td></td>
-              <td><%= f.submit "新規登録", class: "btn btn-success" %></td>
-            </tr>
-          </tbody>
-        </table>
+      <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="form-group row mx-auto">
+          <%= f.label :name, "氏名", class: "col-3" %>
+          <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :name_kana, "氏名（カナ）", class: "col-3", class: "col-3" %>
+          <%= f.text_field :name_kana, autocomplete: "name_kana", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :nickname, "ニックネーム", class: "col-3" %>
+          <%= f.text_field :nickname, autocomplete: "nickname", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :email, "メールアドレス", class: "col-3" %>
+          <%= f.email_field :email, autocomplete: "email", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :phone_number, "電話番号", class: "col-3" %>
+          <%= f.telephone_field :phone_number, autocomplete: "phone_number", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :password, "パスワード", class: "col-3" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :password_confirmation, "パスワード（確認用）", class: "col-3" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "col-5" %>
+        </div>
+          <div class="row">
+          <div class="col-5 offset-3">
+            <%= f.submit "新規登録", class: "btn btn-success btn-lg btn-block" %>
+          </div>
+        </div>
       <% end %>
-      <div class="d-flex justify-content-center" style="margin: 15px 0;">
+      <div class="col-8 offset-3 mt-4">
         <p>
-          <strong>既に登録されている方</strong><br>
-          <%= render "publics/shared/links" %>からログインしてください
+          既に登録されている方は<%= render "publics/shared/links" %>からログインしてください
         </p>
       </div>
     </div>
-  </div>
 </div>

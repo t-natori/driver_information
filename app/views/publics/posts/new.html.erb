@@ -1,62 +1,156 @@
+<h2 class="bg-info text-white d-block text-center">
+  <strong>新規投稿</strong>
+</h2>
 <div class="container">
   <div class="row">
     <div class="col">
-      <h2>新規投稿</h2>
+      <input id="address" type="textbox" value="">
+      <input type="button" value="検索" onclick="codeAddress()">
+      <div id='map' class="mb-5"></div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-6 offset-3">
-      <table>
-        <tdody>
-          <%= form_with model: @post do |f| %>
-          <tr>
-            <td><%= f.label :name, "施設名" %></td>
-            <td><%= f.text_field :name %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :address, "住所" %></td>
-            <td><%= f.text_field :address %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :type, "施設の種類" %></td>
-            <td><%= f.text_field :type %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :recommend, "おすすめ度" %></td>
-            <td><%= f.text_field :recommend %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :genre, "ジャンル" %></td>
-            <td><%= f.select :genre, options_from_collection_for_select(@genre, :id, :name) %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :clean, "清潔度" %></td>
-            <td><%= f.text_field :clean %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :parking, "駐車情報" %></td>
-            <td><%= f.text_field :parking %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :detail, "詳細内容" %></td>
-            <td><%= f.text_area :detail %></td>
-          </tr>
-          <tr>
-            <td><%= f.label :status, "投稿ステータス" %></td>
-            <td>
-              <%= f.radio_button :status, "true" %>
-              <%= f.label :status, "公開" %>
-              <%= f.radio_button :status, "false" %>
-              <%= f.label :status, "非公開" %>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><%= f.submit "投稿" %></td>
-          </tr>
+    <%= form_with model: @post do |f| %>
+      <div class="form-group row mx-auto">
+        <%= f.label :latitude,"緯度", class: "col-3 offset-1" %>
+        <%= f.text_field :latitude, id: :lat, class: "col-5" %>
+      </div><br>
+      <div class="form-group row mx-auto">
+        <%= f.label :longitude,"経度", class: "col-3 offset-1" %>
+        <%= f.text_field :longitude, id: :lng, class: "col-5" %>
+      </div><br>
+      <div class="form-group row mx-auto">
+        <%= f.label :name, "施設名", class: "col-3 offset-1" %>
+        <%= f.text_field :name, placeholder: "(例:セブンイレブン○○店)", class: "col-5" %>
+      </div><br>
+      <div class="form-group row mx-auto">
+        <%= f.label :address, "住所", class: "col-3 offset-1" %>
+        <%= f.text_field :address, class: "col-5" %>
+      </div><br>
+      <div class="form-group row mx-auto">
+        <%= f.label :recommend, "おすすめ度", class: "col-3 offset-1" %>
+        <div id="star" class: "col-5"></div>
+      </div><br>
+      <div class="form-group row mx-auto">
+        <%= f.label :genre_id, "ジャンル", class: "col-3 offset-1" %>
+        <%= f.select :genre_id, options_from_collection_for_select(@genre, :id, :name), class: "col-5" %>
+      </div><br>
+      <div class="form-group row mx-auto">
+        <%= f.label :clean, "清潔度", class: "col-3 offset-1" %>
+        <div id="star-clean" class: "col-5"></div>
+      </div><br>
+      <!--タグのチェックボックス-->
+      <div class="check_box row mx-auto mb-3">
+        <%= f.label :tag_ids, "駐車場タグ", class: "col-3 offset-1" %>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+        <div>
+          <%= tag.label do %>
+            <%= tag.check_box %>
+            <%= tag.text %>
           <% end %>
-        </tdody>
-      </table>
+        </div>
+        <% end %>
+      </div><br>
+      <!--ここまで-->
+      <div class="form-group row mx-auto">
+        <%= f.label :detail, "詳細説明", class: "col-3 offset-1" %>
+        <%= f.text_area :detail, placeholder: "(例:ウォシュレットあり)", class: "col-5" %>
+      </div><br>
+      <div class="form-group row mx-auto">
+        <%= f.label :status, "投稿ステータス", class: "col-3 offset-1" %>
+        <div class="textalign-center col-5">
+          <%= f.radio_button :status, true %>
+          <%= f.label :status, "公開" %>
+          <%= f.radio_button :status, false %>
+          <%= f.label :status, "非公開" %>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-5 offset-3">
+          <%= f.submit "投稿", class:"btn btn-success btn-block" %>
+        </div>
+      </div>
+
+    <% end %>
     </div>
   </div>
 </div>
+
+
+<style>
+#map {
+  height: 250px;
+  width: 700px;
+}
+</style>
+
+<script>
+let map
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.6896067, lng: 139.7005713},
+    zoom: 16,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat: 35.6896067, lng: 139.7005713},
+    map: map
+  });
+}
+
+//検索後のマップ作成
+let geocoder
+let aft
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+        //マーカーが複数できないようにする
+        if (aft == true){
+            marker.setMap(null);
+        }
+
+        //新しくマーカーを作成する
+        map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            draggable: true // ドラッグ可能にする
+        });
+
+        //二度目以降か判断
+        aft = true
+
+        //検索した時に緯度経度を入力する
+        document.getElementById('lat').value = results[0].geometry.location.lat();
+        document.getElementById('lng').value = results[0].geometry.location.lng();
+
+        // マーカーのドロップ（ドラッグ終了）時のイベント
+        google.maps.event.addListener( marker, 'dragend', function(ev){
+            // イベントの引数evの、プロパティ.latLngが緯度経度
+            document.getElementById('lat').value = ev.latLng.lat();
+            document.getElementById('lng').value = ev.latLng.lng();
+        });
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["API_KEY"] %>&callback=initMap" async defer></script>
+
+<script>
+  $('#star').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[recommend]'
+    });
+      $('#star-clean').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[clean]'
+    });
+</script>

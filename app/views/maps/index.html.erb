@@ -1,0 +1,90 @@
+
+<h2>MAP</h2>
+
+<input id="address" type="textbox" value="">
+<input type="button" value="検索" onclick="codeAddress()">
+
+<div id='map' class="mb-5"></div>
+
+<!--マップのサイズ-->
+<style>
+  #map {
+    height: 600px;
+    width: 95%;
+    margin: auto;
+  }
+</style>
+
+
+
+
+<script>
+let map
+let geocoder
+
+const display = document.getElementById('display')
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    //latが緯度、lngが経度
+    center: {lat: 35.6896067, lng: 139.7005713},
+    //ズーム度(数字が大きければよりズームする)
+    zoom: 15,
+
+  });
+
+  //positionで指定した座標にピンを指す
+  marker = new google.maps.Marker({
+    position:  {lat: 35.6896067, lng: 139.7005713},
+    map: map
+    // draggable: true // ドラッグ可能にする
+  });
+
+  //複数マーカー ここから
+      <% @posts.each do |post|%>
+        ( function() {
+          let markerLatLng = new google.maps.LatLng({lat: <%= post.latitude %>, lng: <%= post.longitude %>}); // 緯度経度のデータ作成
+          let marker = new google.maps.Marker({
+            position: markerLatLng,
+            map: map
+          });
+    　　　//マーカーをクリックしたとき、詳細情報を表示
+          let infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "<a href='<%= post_url(post.id) %>' target='_blank'><%= post.name %></a>"
+          }); //ここで詳細ページへのリンクを表示させる
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+       })();
+      <% end %>
+      //複数マーカー ここまで
+
+}
+
+
+
+// codeAddress()の定義
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    //該当する検索結果がヒットした時に、地図の中心を検索結果の緯度,経度に更新する
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {//検索結果が何もなかった場合に下を表示
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });
+}
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["API_KEY"] %>&callback=initMap" async defer></script>

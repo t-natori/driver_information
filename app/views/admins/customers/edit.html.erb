@@ -1,2 +1,59 @@
-<h1>Customers#edit</h1>
-<p>Find me in app/views/customers/edit.html.erb</p>
+<div class="container">
+  <div class="row text-center bg-secondary p-2 text-white mb-4">
+    <div class="col">
+      <h2>
+        <strong><%= @customer.name %>さんの情報編集</strong>
+      </h2>
+    </div>
+  </div>
+  <p id="notice"><%= notice %></p>
+
+    <div class="p-5" style="background-color: lightblue;">
+      <%= form_with model: @customer, url: admins_customer_path(@customer), method: :patch do |f| %>
+        <div class="form-group row mx-auto">
+          <div class="col-3 offset-1">
+            <%= "会員ID" %>
+          </div>
+          <div class="col-5">
+            <%= @customer.id %>
+          </div>
+        </div><br>
+        <div class="form-group row mx-auto">
+          <%= f.label :name, "氏名", class:"col-3 offset-1" %>
+          <%= f.text_field :name, class:"col-5" %>
+        </div><br>
+        <div class="form-group row mx-auto">
+          <%= f.label :name_kana, "氏名(カナ)", class:"col-3 offset-1" %>
+          <%= f.text_field :name_kana, class:"col-5" %>
+        </div><br>
+        <div class="form-group row mx-auto">
+          <%= f.label :nickname, "ニックネーム", class:"col-3 offset-1" %>
+          <%= f.text_field :nickname, class:"col-5" %>
+        </div><br>
+        <div class="form-group row mx-auto">
+          <%= f.label :email, "メールアドレス", class:"col-3 offset-1" %>
+          <%= f.text_field :email, class:"col-5" %>
+        </div><br>
+        <div class="form-group row mx-auto">
+          <%= f.label :phone_number, "電話番号", class:"col-3 offset-1" %>
+          <%= f.telephone_field :phone_number, class:"col-5" %>
+        </div><br>
+        <div class="form-group row mx-auto">
+          <%= f.label :status, "会員ステータス", class:"col-3 offset-1" %>
+          <div class="col-5">
+            <%= f.radio_button :status, "true" %>
+            <%= f.label :status, "有効" %>
+            <%= f.radio_button :status, "false" %>
+            <%= f.label :status, "退会" %>
+          </div>
+        </div><br>
+        <div class="row">
+        <div class="col-5 offset-3 d-flex justify-content-around">
+          <%= f.submit "更新", class:"btn btn-success" %>
+          <%= link_to "戻る", admins_customer_path(@customer), class:"btn btn-primary" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+</div>

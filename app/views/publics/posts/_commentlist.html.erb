@@ -1,0 +1,12 @@
+<strong>コメント数：<%= post.comments.count %></strong>
+<% post.comments.each do |comment| %>
+  <div>
+    <strong>"<%= comment.customer.nickname %>"</strong>
+    <br>
+    <%= comment.body %><br>
+    <%= comment.created_at.strftime('%Y/%m/%d') %>
+    <% if comment.customer == current_customer %>
+      <%= link_to "削除", post_comment_path(post, comment), method: :delete, remote: true, data: { confirm: '本当に削除しますか？' }, class:"btn btn-sm btn-danger" %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,2 +1,47 @@
-<h1>Customers#index</h1>
-<p>Find me in app/views/customers/index.html.erb</p>
+<div class="container">
+  <div class="row text-center bg-secondary p-2 text-white mb-5">
+    <div class="col">
+      <h2><strong>会員一覧</strong></h2>
+    </div>
+  </div>
+  <div class="row" style="background-color: lightblue;">
+    <div class="col">
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>氏名(カナ)</th>
+            <th>ニックネーム</th>
+            <th>会員ステータス</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @customers.each do |customer| %>
+          <tr>
+            <td><%= customer.id %></td>
+            <td>
+              <%= link_to admins_customer_path(customer.id) do %>
+                <%= customer.name %>
+              <% end %>
+              </td>
+            <td><%= customer.name_kana %></td>
+            <td><%= customer.nickname %></td>
+            <td>
+              <% if customer.status == true %>
+                <p>有効</p>
+              <% else %>
+                <p>退会</p>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to "編集", edit_admins_customer_path(customer.id), class:"btn btn-success" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

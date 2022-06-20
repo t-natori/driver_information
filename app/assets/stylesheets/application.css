@@ -14,13 +14,8 @@
  *= require_self
  */
 
-body {
-  background: lightgray;
-  height: 100%;
-  position: relative;
-}
-
-main {
-  position: absolute;
-  margin: auto;
+.kaminari {
+  display: flex;
+  justify-content:center;
+  margin-top: 10px;
 }
