@@ -20,7 +20,7 @@ class Publics::PostsController < ApplicationController
   end
 
   def index
-    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all.page(params[:page]).per(7)
+    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.where(status: true).page(params[:page]).per(7)
   end
 
   def show
