@@ -78,9 +78,11 @@
           <tr>
             <td></td>
             <td>
-              <% if @post.customer_id == current_customer.id %>
-                <%= link_to "編集", edit_post_path(@post), class:"btn btn-success mr-5" %>
-                <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger ml-5" %>
+              <% if customer_signed_in? %>
+                <% if @post.customer_id == current_customer.id %>
+                  <%= link_to "編集", edit_post_path(@post), class:"btn btn-success mr-5" %>
+                  <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger ml-5" %>
+                <% end %>
               <% end %>
             </td>
           </tr>
