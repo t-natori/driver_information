@@ -11,6 +11,8 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+
     <script src="https://kit.fontawesome.com/e8a13719a6.js" crossorigin="anonymous"></script>
   </head>
 
@@ -18,7 +20,7 @@
     <header>
         <%= render "layouts/header" %>
     </header>
-    <main class="mt-5">
+    <main class="mt-5 mb-5">
       <%#= render "layouts/flash_message" %>
       <%= yield %>
     </main>

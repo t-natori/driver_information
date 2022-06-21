@@ -1,16 +1,26 @@
-
-<h2>MAP</h2>
-
-<input id="address" type="textbox" value="">
-<input type="button" value="検索" onclick="codeAddress()">
-
-<div id='map' class="mb-5"></div>
+<div class="container">
+  <div class="row">
+    <h1 style="background-color: white;">
+      <strong>一覧MAP</strong>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-4 offset-8">
+      <input id="address" type="textbox" style="width: 200px; height: 50px;">
+      <input type="button" style="width: 80px; height: 50px;" value="検索" onclick="codeAddress()">
+    </div>
+  </div>
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div id='map' class="mb-5"></div>
+  </div>
+</div>
 
 <!--マップのサイズ-->
 <style>
   #map {
-    height: 600px;
-    width: 95%;
+    height: 650px;
+    width: 100%;
     margin: auto;
   }
 </style>
@@ -36,11 +46,11 @@ function initMap(){
   });
 
   //positionで指定した座標にピンを指す
-  marker = new google.maps.Marker({
-    position:  {lat: 35.6896067, lng: 139.7005713},
-    map: map
-    // draggable: true // ドラッグ可能にする
-  });
+  // marker = new google.maps.Marker({
+  //   position:  {lat: 35.6896067, lng: 139.7005713},
+  //   map: map
+  //   // draggable: true // ドラッグ可能にする
+  // });
 
   //複数マーカー ここから
       <% @posts.each do |post|%>
@@ -53,7 +63,8 @@ function initMap(){
     　　　//マーカーをクリックしたとき、詳細情報を表示
           let infowindow = new google.maps.InfoWindow({
             position: markerLatLng,
-            content: "<a href='<%= post_url(post.id) %>' target='_blank'><%= post.name %></a>"
+            content: "<div><a href='<%= post_url(post.id) %>' target='_blank'><%= post.name %></a><br>おすすめ度：<%= post.recommend %></div>"
+
           }); //ここで詳細ページへのリンクを表示させる
           marker.addListener('click', function() {
             infowindow.open(map, marker);
@@ -75,10 +86,10 @@ function codeAddress(){
     //該当する検索結果がヒットした時に、地図の中心を検索結果の緯度,経度に更新する
     if (status == 'OK') {
       map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
+      // var marker = new google.maps.Marker({
+      //     map: map,
+      //     position: results[0].geometry.location
+      // });
     } else {//検索結果が何もなかった場合に下を表示
       alert('該当する結果がありませんでした：' + status);
     }
@@ -86,5 +97,7 @@ function codeAddress(){
 }
 
 </script>
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["API_KEY"] %>&callback=initMap" async defer></script>
