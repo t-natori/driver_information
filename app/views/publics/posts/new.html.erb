@@ -6,7 +6,7 @@
       </h2>
     </div>
   </div>
-  <div class="row mt-5">
+  <div class="row mt-5 p-4" style="background-color: white;">
     <div class="col-5 text-center">
       <input id="address" type="textbox" value="">
       <input type="button" value="検索" onclick="codeAddress()">
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :address, "住所", class: "col-3 offset-1" %>
-          <%= f.text_field :address, class: "col-5" %>
+          <%= f.text_field :address, id: :adr, class: "col-5" %>
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :recommend, "おすすめ度", class: "col-3 offset-1" %>
@@ -127,14 +127,18 @@ function codeAddress(){
         aft = true
 
         //検索した時に緯度経度を入力する
+        console.log(results[0].geometry.location)
         document.getElementById('lat').value = results[0].geometry.location.lat();
         document.getElementById('lng').value = results[0].geometry.location.lng();
+        document.getElementById('adr').value = results[0].formatted_address.replace(/^日本、.* /, '')
 
         // マーカーのドロップ（ドラッグ終了）時のイベント
         google.maps.event.addListener( marker, 'dragend', function(ev){
             // イベントの引数evの、プロパティ.latLngが緯度経度
             document.getElementById('lat').value = ev.latLng.lat();
             document.getElementById('lng').value = ev.latLng.lng();
+            document.getElementById('adr').value = ev.address.adr();
+
         });
     } else {
       alert('該当する結果がありませんでした：' + status);

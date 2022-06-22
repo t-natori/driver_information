@@ -91,9 +91,14 @@
     </div>
 
     <div class="col-3 offset-1">
-      <div id="comment_form">
-        <%= render "form", post: @post, comment: @comment %>
-      </div>
+
+        <div id="comment_form" style="height: 100px;">
+          <% if signed_in? %>
+          <%= render "form", post: @post, comment: @comment %>
+          <% end %>
+        </div>
+
+
       <div id="comments_area" class="mt-4" style="height: 450px; overflow: scroll;">
         <%= render "publics/posts/commentlist", post: @post %>
       </div>
