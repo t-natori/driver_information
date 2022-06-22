@@ -1,19 +1,15 @@
-<div class="container" style="margin: 70px auto;">
+<div class="container">
   <div class="row">
     <div class="col-6 offset-3">
       <h2 class="bg-info text-white d-block text-center">ログイン</h2>
     </div>
   </div>
-  <div class="row" style="background-color: lightblue; margin: 40px 0;">
+  <div class="row pt-5 mt-5" style="background-color: lightblue; margin: 40px 0;">
     <div class="col-6 offset-3">
       <%= form_with model: @customer, url: customer_session_path do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
         <table class="table table-borderless" style="margin-top: 20px;">
           <tbody>
-            <tr class="field">
-              <td><%= f.label :nickname, "ニックネーム"%></td>
-              <td><%= f.text_field :nickname, autofocus: true, autocomplete: "nickname" %></td>
-            </tr>
             <tr class="field">
               <td><%= f.label :email, "メールアドレス" %></td>
               <td><%= f.email_field :email, autocomplete: "email" %></td>

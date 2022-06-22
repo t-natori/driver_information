@@ -32,7 +32,7 @@ class Publics::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
-      redirect_to posts_path
+      redirect_to posts_path, notice: "投稿が削除されました"
     else
       @comment = Comment.new
       @tags = @posts.tags

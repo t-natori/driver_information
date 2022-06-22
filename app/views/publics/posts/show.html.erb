@@ -6,8 +6,7 @@
         </h2>
     </div>
   </div>
-  <p id="notice"><%= notice %></p>
-  <div class="row">
+  <div class="row pt-4" style="background-color: lightblue;">
     <div class="col-8">
       <table class="table">
         <tbody>
@@ -99,7 +98,7 @@
         </div>
 
 
-      <div id="comments_area" class="mt-4" style="height: 450px; overflow: scroll;">
+      <div id="comments_area" class="mt-4 p-2" style="background-color: white; height: 450px; overflow: scroll;">
         <%= render "publics/posts/commentlist", post: @post %>
       </div>
     </div>
