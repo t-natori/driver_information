@@ -6,11 +6,11 @@
       </h2>
     </div>
   </div>
-  <div class="row mt-5 p-4" style="background-color: white;">
+  <div class="row mt-5 p-4" style="background-color: lightblue;">
     <div class="col-5 text-center">
       <input id="address" type="textbox" value="">
       <input type="button" value="検索" onclick="codeAddress()">
-      <div id='map' class="mt-3 mb-5"></div>
+      <div id='map' class="mt-3"></div>
     </div>
     <div class="col-7 mt-5">
       <%= form_with model: @post do |f| %>
@@ -137,7 +137,7 @@ function codeAddress(){
             // イベントの引数evの、プロパティ.latLngが緯度経度
             document.getElementById('lat').value = ev.latLng.lat();
             document.getElementById('lng').value = ev.latLng.lng();
-            document.getElementById('adr').value = ev.address.adr();
+            document.getElementById('adr').value = ev.formatted_address.replace()
 
         });
     } else {

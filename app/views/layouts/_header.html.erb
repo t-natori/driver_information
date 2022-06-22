@@ -86,7 +86,13 @@
               <%= link_to  new_customer_session_path, class: 'btn btn-outline-info nav-link text-dark' do %>
                 <i class="fa-solid fa-right-to-bracket"></i><%= " ログイン " %>
               <% end %>
-              </li>
+            </li>
+            <li class="mx-3">
+              <%= link_to customers_guest_sign_in_path, class: "btn btn-outline-secondary nav-link text-dark", method: :post do %>
+                <i class="fa-solid fa-right-to-bracket"></i><%= " ゲストログイン（閲覧用）" %>
+              <% end %>
+            </li>
+
           </ul>
         <% end %>
       </div>
