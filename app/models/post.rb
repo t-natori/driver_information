@@ -46,4 +46,14 @@ validates :status, inclusion: [true, false]
 
 # enum status:{release: true, unrelease: false}
 
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @post = Post.where("address LIKE?","#{word}")
+    elsif search == "partial_match"
+      @post = Post.where("address LIKE?","%#{word}%")
+    else
+      @post = Post.all
+    end
+  end
+
 end

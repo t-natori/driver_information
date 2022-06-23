@@ -1,5 +1,5 @@
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 120px; background-color: blue;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="min-height: 120px;">
     <div class="container">
       <%= link_to root_path,class: "header-logo-letter" do %><%= image_tag('logo.png', :size => "200x120") %><% end %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,12 +39,12 @@
               <strong><%= current_customer.nickname %></strong>
             </li>
             <li class="mx-3">
-              <%= link_to new_post_path, class: 'btn btn-outline-success nav-link text-dark' do %>
+              <%= link_to new_post_path, class: 'btn btn-outline-success nav-link text-dark',data: {"turbolinks"=>false} do %>
                 <i class="fa-solid fa-pencil"></i><%= " 新規投稿 " %>
               <% end %>
             </li>
             <li class="mx-3">
-              <%= link_to index_path, class: 'btn btn-outline-primary nav-link text-dark' do %>
+              <%= link_to index_path, class: 'btn btn-outline-primary nav-link text-dark',data: {"turbolinks"=>false} do %>
                 <i class="fa-solid fa-map-location-dot"></i><%= " M A P " %>
               <% end %>
             </li>
@@ -68,6 +68,11 @@
           <ul class="navbar-nav ml-auto">
           <!--ログアウト時-->
             <li class="mx-3">
+              <%= link_to customers_guest_sign_in_path, class: "btn btn-outline-secondary nav-link text-dark", method: :post do %>
+                <i class="fa-solid fa-right-to-bracket"></i><%= " ゲストログイン（閲覧用）" %>
+              <% end %>
+            </li>
+            <li class="mx-3">
               <%= link_to index_path, class: 'btn btn-outline-primary nav-link text-dark' do %>
                 <i class="fa-solid fa-map-location-dot"></i><%= "  M A P  " %>
               <% end %>
@@ -87,12 +92,6 @@
                 <i class="fa-solid fa-right-to-bracket"></i><%= " ログイン " %>
               <% end %>
             </li>
-            <li class="mx-3">
-              <%= link_to customers_guest_sign_in_path, class: "btn btn-outline-secondary nav-link text-dark", method: :post do %>
-                <i class="fa-solid fa-right-to-bracket"></i><%= " ゲストログイン（閲覧用）" %>
-              <% end %>
-            </li>
-
           </ul>
         <% end %>
       </div>

@@ -6,15 +6,6 @@
       </h2>
     </div>
   </div>
-  <div class="row">
-    <div class="col-4 offset-3">
-      <%= form_tag customer_path, method: :get, class: 'boards__searchForm' do %>
-        <%= "タグ絞り込み:" %>
-        <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]), { prompt: 'すべて表示', onchange: 'submit(this.form);' } %>
-      <% end %>
-    </div>
-  </div>
-
   <div class="row mt-4 p-4" style="background-color: lightblue;">
     <div class="col-2 p-3" style="background-color: rgb(208, 255, 0);">
       <h4 class="text-center mt-2"><strong>ユーザー情報</strong></h4>
@@ -56,10 +47,19 @@
       <% end %>
     </div>
     <div class="col-10">
-      <h4 class="text-center mt-2">
-        <strong>投稿一覧</strong>
-      </h4>
-      <%= render "publics/posts/post_index", posts: @posts %>
+      <div class="row">
+        <h4 class="col-4 offset-2 mt-2">
+          <strong><%= current_customer.nickname %>さんの投稿一覧</strong>
+        </h4>
+      </div>
+      <div class="row">
+        <%= render "publics/posts/post_index", posts: @posts %>
+      </div>
+      <div class="row">
+        <div class="col-4 offset-5">
+          <%= paginate @posts %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -12,9 +12,9 @@
         <%= f.label :name, "施設名", class:"col-3 offset-1"%>
         <%= f.text_field :name, class:"col-5" %>
       </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :address, "住所", class:"col-3 offset-1" %>
-        <%= f.text_field :address, class:"col-5" %>
+      <div class="row mx-auto">
+        <div class="col-3 offset-1">住所</div>
+        <div class="col-5"><%= @post.address %></div>
       </div><br>
       <div class="form-group row mx-auto">
         <%= f.label :recommend, "おすすめ度", class:"col-3 offset-1" %>
