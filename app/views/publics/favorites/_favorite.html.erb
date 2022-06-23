@@ -1,13 +1,13 @@
 <% if customer_signed_in? %>
   <% if post.favorited_by?(current_customer) %>
       <%= link_to post_favorites_path(post), method: :delete, remote: true do %>
-        ♥<%= post.favorites.count %> いいね
+        <i class="fa-solid fa-thumbs-up"></i>   <%= post.favorites.count %>
       <% end %>
   <% else %>
       <%= link_to post_favorites_path(post), method: :post, remote: true do %>
-        ♡<%= post.favorites.count %> いいね
+        <i class="fa-regular fa-thumbs-up"></i>   <%= post.favorites.count %>
       <% end %>
   <% end %>
 <% else %>
-  ♥<%= post.favorites.count %>いいね
+  <i class="fa-regular fa-thumbs-up"></i>   <%= post.favorites.count %>
 <% end %>

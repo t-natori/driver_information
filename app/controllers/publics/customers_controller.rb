@@ -1,11 +1,12 @@
 class Publics::CustomersController < ApplicationController
   before_action :authenticate_customer!
-  before_action :ensure_customer
+  # before_action :ensure_customer
   before_action :ensure_guest_customer, only: [:edit]
 
   def show
     @customer = current_customer
-    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : @customer.posts
+    posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : @customer.posts
+    @posts = posts.page(params[:page]).per(7)
   end
 
   def quit

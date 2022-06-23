@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>検索結果</strong>
+      </h2>
+    </div>
+  </div>
+  <div class="row mb-3" style="line-height: center;">
+    <div class="col-2 offset-7 mt-1"><%= "タグ絞り込み:" %></div>
+    <div class="col-2 mt-1">
+      <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+        <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+          {
+            prompt: 'すべて表示',
+            onchange: 'submit(this.form);'
+          }
+        %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row pt-4 pb-4" style="background-color: lightblue; height: 600px;">
+    <div class="col">
+      <%= render "publics/posts/post_index", posts: @posts %>
+    </div>
+  </div>
+</div>
