@@ -1,0 +1,83 @@
+ja:
+  activerecord:
+    models:
+      customer: 会員
+
+    attributes:
+      customer:
+        email: メールアドレス
+        password: パスワード
+        name: 氏名
+        name_kana: 氏名(カナ)
+        nickname: ニックネーム
+        phone_number: 電話番号
+
+      post:
+        latitude: 緯度
+        longitude: 経度
+        name: 施設名
+        address: 住所
+        recommend: おすすめ度
+        clean: 清潔度
+
+
+    errors:
+      models:
+        customer:
+          attributes:
+            email:
+              blank: を入力してください
+            password:
+              blank: を入力してください
+            name:
+              blank: を入力してください
+            name_kana:
+              blank: を入力してください
+            nickname:
+              blank: を入力してください
+            phone_number:
+              blank: を入力してください
+
+        post:
+          attributes:
+            latitude:
+              blank: を入力してください
+            longitude:
+              blank: を入力してください
+            name:
+              blank: を入力してください
+            address:
+              blank: を入力してください
+            recommend:
+              not_a_number: の星がありません
+              blank: を入力してください
+            clean:
+              not_a_number: の星がありません
+              blank: を入力してください
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            email:
+              blank: を入力してください
+            password:
+              blank: を入力してください
+            name:
+              blank: を入力してください
+            name_kana:
+              blank: を入力してください
+            nickname:
+              blank: を入力してください
+            phone_number:
+              blank: を入力してください

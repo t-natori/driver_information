@@ -13,14 +13,13 @@ class Publics::PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post), notice: "投稿が登録されました"
     else
-      @post = Post.new
       @genre = Genre.all
       render :new
     end
   end
 
   def index
-    posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.where(status: true)
+    posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.where(status: true) : Post.where(status: true)
     @posts = posts.page(params[:page]).per(7)
   end
 
