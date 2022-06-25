@@ -42,8 +42,12 @@
         </div>
       </div><br>
       <% if @customer.name != "guestcustomer" %>
-        <%= link_to "ユーザー編集", edit_customer_path(@customer.id), class:"btn btn-success btn-block mt-3 mb-2" %>
-        <%= link_to "退会する", quit_path, class:"btn btn-danger btn-block mt-3 mb-2" %>
+        <%= link_to edit_customer_path(@customer.id), class:"btn btn-success btn-block mt-3 mb-2" do %>
+          <i class="fa-solid fa-user-gear"></i> 編集
+        <% end %>
+        <%= link_to quit_path, class:"btn btn-danger btn-block mt-3 mb-2" do %>
+          <i class="fa-solid fa-user-large-slash"></i> 退会
+        <% end %>
       <% end %>
     </div>
     <div class="col-10">

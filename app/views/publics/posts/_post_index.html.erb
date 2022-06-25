@@ -1,6 +1,7 @@
 <table class="table">
         <thead>
           <tr>
+            <th></th>
             <th>施設名</th>
             <th>住所</th>
             <th>おすすめ度</th>
@@ -14,6 +15,11 @@
           <% posts.each do |t| %>
           <tr>
             <td>
+              <% if t.customer == current_customer %>
+                <i class="fa-solid fa-user-check"></i>
+              <% end %>
+            </td>
+            <td>
               <%= link_to post_path(t.id) do %>
                 <%= t.name %>
               <% end %>
@@ -21,7 +27,7 @@
             <td><%= t.address %></td>
             <td><div id="star-<%= t.id %>"></div></td>
               <script>
-      
+
                   init();
                   function init(){
                     if (0 < $("#star-<%= t.id %> img").length) return false;
@@ -35,17 +41,17 @@
                       score: <%= t.recommend %>,
                     });
                   }
-      
+
               </script>
             <td><%= t.genre.name %></td>
-      
+
             <td>
               <% t.tags.each do |tag| %>
                 <i class="fa-solid fa-tag"></i><%= tag.name %><br>
               <% end %>
             </td>
-      
-      
+
+
             <td id="favorite_buttons_<%= t.id %>">
               <%= render "publics/favorites/favorite", post: t %>
             </td>
