@@ -3,9 +3,10 @@ class Publics::FavoritesController < ApplicationController
 
   def index
     @customer = current_customer
-    @posts = @customer.posts
+
+    @posts = @customer.posts.where(status: true)
     @favorites = Favorite.where(customer_id: current_customer.id).pluck(:post_id)
-    @favorites_list = Post.find(@favorites)
+    @favorites_list = Post.where(id: @favorites).where(status: true)
   end
 
   def create

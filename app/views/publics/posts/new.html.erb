@@ -6,8 +6,27 @@
       </h2>
     </div>
   </div>
-
-  <div class="row mt-5 p-4" style="background-color: lightblue;">
+  <div class="row">
+    <div class="col">
+      <p>
+        <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <h2 class="mx-auto">
+            <strong>How to use</strong>
+          </h2>
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body text-center">
+          <p>
+            検索フォームで(住所、建物など)検索をすると <i class="fa-solid fa-location-dot text-danger">(ピン)</i> がささり<br>
+            「緯度」「経度」「住所」が自動入力されます。<br>
+            また、 <i class="fa-solid fa-location-dot text-danger">(ピン)</i> をドラッグすると移動することができます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row p-4" style="background-color: lightblue;">
     <div class="col-5 text-center">
       <input id="address" type="textbox" class="rounded" autofocus="true">
       <input type="button" class="rounded" value="検索" onclick="codeAddress()">
@@ -15,7 +34,9 @@
     </div>
     <div class="col-7 mt-5">
       <%= form_with model: @post do |f| %>
-        <%= render "publics/shared/error_messages", post: @post, model: f.object %>
+        <div class="text-danger ml-5 pl-5">
+          <%= render "publics/shared/error_messages", post: @post %>
+        </div>
         <div class="form-group row mx-auto">
           <%= f.label :latitude,"緯度", class: "col-3 offset-1" %>
           <%= f.text_field :latitude, id: :lat, class: "col-5" %>
