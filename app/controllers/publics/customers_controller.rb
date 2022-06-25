@@ -15,9 +15,6 @@ class Publics::CustomersController < ApplicationController
   def quit
     @customer = current_customer
     redirect_to_mypage(@customer)
-    #if @customer.name == "guestcustomer"
-     # redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはプロフィール退会画面へ遷移できません。'
-    #end
   end
 
   def out
@@ -52,20 +49,11 @@ class Publics::CustomersController < ApplicationController
   def ensure_guest_customer
     @customer = Customer.find(params[:id])
     redirect_to_mypage(@customer)
-    #if @customer.name == "guestcustomer"
-     # redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
-    #end
   end
 
-  def ensure_customer
-    @customer = Customer.find(params[:id])
-    if @customer != current_customer
-      redirect_to customer_path(current_customer) , notice: 'リクエストされたページには遷移できません。'
-    end
-  end
   def redirect_to_mypage(customer)
     if customer.name == "guestcustomer"
-      redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+      redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはリクエストされたページには遷移できません。'
     end
   end
 end

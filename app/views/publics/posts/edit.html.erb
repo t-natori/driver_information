@@ -8,32 +8,35 @@
   </div>
   <div class="pt-5 pb-5" style="background-color: lightblue;">
     <%= form_with model: @post, url: post_path(@post.id) do |f| %>
+      <div class="text-danger d-flex justify-content-center pb-5">
+        <%= render "publics/shared/error_messages", post: @post %>
+      </div>
       <div class="form-group row mx-auto">
-        <%= f.label :name, "施設名", class:"col-3 offset-1"%>
+        <%= f.label :name, "施設名", class:"col-3 offset-2"%>
         <%= f.text_field :name, class:"col-5" %>
       </div><br>
       <div class="row mx-auto">
-        <div class="col-3 offset-1">住所</div>
+        <div class="col-3 offset-2">住所</div>
         <div class="col-5"><%= @post.address %></div>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :recommend, "おすすめ度", class:"col-3 offset-1" %>
+        <%= f.label :recommend, "おすすめ度", class:"col-3 offset-2" %>
         <div id="star" class="col-5"></div>
       </div><br>
       <div>
-        <%= f.label :genre, "ジャンル", class:"col-3 offset-1" %>
+        <%= f.label :genre, "ジャンル", class:"col-3 offset-2" %>
         <%= @post.genre.name %>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :clean, " 清潔度", class:"col-3 offset-1" %>
+        <%= f.label :clean, " 清潔度", class:"col-3 offset-2" %>
         <div id="star-clean" class="col-5"></div>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :detail, "詳細説明", class:"col-3 offset-1" %>
-        <%= f.text_field :detail, class:"col-5" %>
+        <%= f.label :detail, "詳細説明", class:"col-3 offset-2" %>
+        <%= f.text_area :detail, class:"col-5" %>
       </div><br>
       <div class="form-group row mx-auto">
-        <%= f.label :status, "投稿ステータス", class:"col-3 offset-1" %>
+        <%= f.label :status, "投稿ステータス", class:"col-3 offset-2" %>
         <div class="textalign-center col-5">
           <%= f.radio_button :status, true %>
           <%= f.label :status, "公開" %>
@@ -41,10 +44,9 @@
           <%= f.label :status, "非公開" %>
         </div>
       </div><br>
-      <div class="row">
-        <div class="col-5 offset-3 d-flex justify-content-around">
-          <%= f.submit "更新", class:"btn btn-success" %>
-          <%= link_to "戻る", post_path(@post), class:"btn btn-primary" %>
+      <div class="row d-flex justify-content-center">
+        <div class="col-3">
+          <%= f.submit "更新", class:"btn btn-success btn-block" %>
         </div>
       </div>
 

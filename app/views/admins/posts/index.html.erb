@@ -4,63 +4,76 @@
       <h2><strong>投稿一覧</strong></h2>
     </div>
   </div>
-  <div class="row" style=" background-color: white;">
+  <div class="row p-4" style=" background-color: white; min-height: 550px;">
     <div class="col">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>施設名</th>
-            <th>住所</th>
-            <th>おすすめ度</th>
-            <th>ジャンル</th>
-            <th>タグ</th>
-            <th>いいね</th>
-            <th>投稿ステータス</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @posts.each do |f| %>
-          <tr>
-            <td>
-              <%= link_to admins_post_path(f) do %>
-                <%= f.name %>
-              <% end %>
-            </td>
-            <td><%= f.address %></td>
-            <td><div id="star-<%= f.id %>"></div></td>
-              <script>
-                  init();
-                  function init(){
-                    if (0 < $("#star-<%= f.id %> img").length) return false;
-                    $("#star-<%= f.id %>").raty({
-                      starOn: "<%= asset_path('star-on.png') %>",
-                      starOff: "<%= asset_path('star-off.png') %>",
-                      scoreName: 'post[recommend]',
-                      // 読み取り専用
-                      readOnly: true,
-                      // 星評価の読み込み
-                      score: <%= f.recommend %>,
-                    });
-                  }
-              </script>
-            <td><%= f.genre.name %></td>
-            <td>
-              <% f.tags.each do |tag| %>
-                #<%= tag.name %><br>
-              <% end %>
-            </td>
-            <td>♥<%= f.favorites.count %>いいね</td>
-            <td>
-              <% if f.status == true %>
-                <%= "公開" %>
-              <% else %>
-                <%= "非公開" %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>投稿者ID</th>
+              <th>施設名</th>
+              <th>住所</th>
+              <th>おすすめ度</th>
+              <th>ジャンル</th>
+              <th>タグ</th>
+              <th>いいね</th>
+              <th>投稿ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @posts.each do |f| %>
+            <tr>
+              <td>
+                <%= link_to admins_customer_path(f.customer) do %>
+                  <%= f.customer.id %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to admins_post_path(f) do %>
+                  <%= f.name %>
+                <% end %>
+              </td>
+              <td><%= f.address %></td>
+              <td><div id="star-<%= f.id %>"></div></td>
+                <script>
+                    init();
+                    function init(){
+                      if (0 < $("#star-<%= f.id %> img").length) return false;
+                      $("#star-<%= f.id %>").raty({
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        scoreName: 'post[recommend]',
+                        // 読み取り専用
+                        readOnly: true,
+                        // 星評価の読み込み
+                        score: <%= f.recommend %>,
+                      });
+                    }
+                </script>
+              <td><%= f.genre.name %></td>
+              <td>
+                <% f.tags.each do |tag| %>
+                  #<%= tag.name %><br>
+                <% end %>
+              </td>
+              <td>♥<%= f.favorites.count %>いいね</td>
+              <td>
+                <% if f.status == true %>
+                  <%= "公開" %>
+                <% else %>
+                  <%= "非公開" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-4 offset-5">
+          <%= paginate @posts %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
