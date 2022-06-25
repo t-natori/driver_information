@@ -1,6 +1,13 @@
 class Publics::FavoritesController < ApplicationController
   before_action :authenticate_customer!
 
+  def index
+    @customer = current_customer
+    @posts = @customer.posts
+    @favorites = Favorite.where(customer_id: current_customer.id).pluck(:post_id)
+    @favorites_list = Post.find(@favorites)
+  end
+
   def create
     @post = Post.find(params[:post_id])
     @favorite = current_customer.favorites.new(post_id: @post.id)

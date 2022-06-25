@@ -23,6 +23,11 @@
         <% end %>
       <% end %>
     </div>
+    <div class="col btn btn-primary">
+      <%= link_to customer_favorites_index_path(current_customer.id) do %>
+        <i class="fa-solid fa-thumbs-up text-white">いいね一覧</i>
+      <% end %>
+    </div>
   </div>
   <div class="row pt-4 pb-4" style="background-color: lightblue; min-height: 550px;">
     <div class="col">

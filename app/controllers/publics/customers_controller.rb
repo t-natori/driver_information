@@ -1,16 +1,20 @@
 class Publics::CustomersController < ApplicationController
   before_action :authenticate_customer!
   # before_action :ensure_customer
-  before_action :ensure_guest_customer, only: [:edit]
+  before_action :ensure_guest_customer, only: [:edit, :quit]
 
   def show
-    @customer = current_customer
-    posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : @customer.posts
-    @posts = posts.page(params[:page]).per(7)
+    @customer = Customer.find(params[:id])
+    if @customer != current_customer
+      redirect_to customer_path(current_customer), notice: "リクエストされたページには遷移できません"
+    else
+      posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : @customer.posts
+      @posts = posts.page(params[:page]).per(7)
+    end
   end
 
   def quit
-    @customer = current_customer
+    @customer = Customer.find(params[:id])
   end
 
   def out
@@ -23,6 +27,9 @@ class Publics::CustomersController < ApplicationController
 
   def edit
     @customer = Customer.find(params[:id])
+    if @customer != current_customer
+      redirect_to customer_path(current_customer), notice: "他人の編集ページには遷移できません"
+    end
   end
 
   def update
