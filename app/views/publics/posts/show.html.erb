@@ -52,7 +52,7 @@
             <td>タグ</td>
             <td>
               <% @post.tags.each do |tag| %>
-                <span>#<%= tag.name %></span>
+                <span><i class="fa-solid fa-tag"></i><%= tag.name %></span>
               <% end %>
             </td>
           </tr>
@@ -93,7 +93,7 @@
 
         <div id="comment_form" style="height: 100px;">
           <% if signed_in? %>
-          <%= render "form", post: @post, comment: @comment %>
+            <%= render "form", post: @post, comment: @comment %>
           <% end %>
         </div>
 

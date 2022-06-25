@@ -1,4 +1,6 @@
 <%= form_with model: [post, comment], local: false do |f| %>
-  <%= f.text_area :body, placeholder: "コメント" %>
+  <%= f.text_area :body, placeholder: "コメント" %><br>
+  <div class="text-right">
   <%= f.submit "送信" %>
+  </div>
 <% end %>
