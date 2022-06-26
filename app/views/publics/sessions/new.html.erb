@@ -1,22 +1,22 @@
-<div class="container" style="margin: 70px auto;">
-  <div class="row">
-    <div class="col-6 offset-3">
-      <h2 class="bg-info text-white d-block text-center">ログイン</h2>
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center rounded">
+        <strong>ログイン</strong>
+      </h2>
     </div>
   </div>
-  <div class="row" style="background-color: lightblue; margin: 40px 0;">
+  <div class="row pt-5 pb-5 mt-5" style="background-color: lightblue; margin: 40px 0;">
     <div class="col-6 offset-3">
       <%= form_with model: @customer, url: customer_session_path do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-        <table class="table table-borderless" style="margin-top: 20px;">
+        <div class="row text-danger">
+          <%= render "devise/shared/error_messages", resource: resource %>
+        </div>
+        <table class="table table-borderless mb-5" style="margin-top: 20px;">
           <tbody>
             <tr class="field">
-              <td><%= f.label :nickname, "ニックネーム"%></td>
-              <td><%= f.text_field :nickname, autofocus: true, autocomplete: "nickname" %></td>
-            </tr>
-            <tr class="field">
               <td><%= f.label :email, "メールアドレス" %></td>
-              <td><%= f.email_field :email, autocomplete: "email" %></td>
+              <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
             </tr>
             <tr class="field">
               <td>
@@ -34,7 +34,7 @@
           </tbody>
         </table>
       <% end %>
-      <div class="d-flex justify-content-center" style="margin: 15px 0;">
+      <div class="d-flex justify-content-center">
         <p>
           <strong>まだ会員登録されてない方は</strong></br>
           <%= render "publics/shared/links" %>から新規登録してください

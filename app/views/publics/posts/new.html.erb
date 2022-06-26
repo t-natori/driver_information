@@ -1,76 +1,102 @@
-<h2 class="bg-info text-white d-block text-center">
-  <strong>新規投稿</strong>
-</h2>
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <input id="address" type="textbox" value="">
-      <input type="button" value="検索" onclick="codeAddress()">
-      <div id='map' class="mb-5"></div>
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>新規投稿</strong>
+      </h2>
     </div>
   </div>
-    <%= form_with model: @post do |f| %>
-      <div class="form-group row mx-auto">
-        <%= f.label :latitude,"緯度", class: "col-3 offset-1" %>
-        <%= f.text_field :latitude, id: :lat, class: "col-5" %>
-      </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :longitude,"経度", class: "col-3 offset-1" %>
-        <%= f.text_field :longitude, id: :lng, class: "col-5" %>
-      </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :name, "施設名", class: "col-3 offset-1" %>
-        <%= f.text_field :name, placeholder: "(例:セブンイレブン○○店)", class: "col-5" %>
-      </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :address, "住所", class: "col-3 offset-1" %>
-        <%= f.text_field :address, class: "col-5" %>
-      </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :recommend, "おすすめ度", class: "col-3 offset-1" %>
-        <div id="star" class: "col-5"></div>
-      </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :genre_id, "ジャンル", class: "col-3 offset-1" %>
-        <%= f.select :genre_id, options_from_collection_for_select(@genre, :id, :name), class: "col-5" %>
-      </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :clean, "清潔度", class: "col-3 offset-1" %>
-        <div id="star-clean" class: "col-5"></div>
-      </div><br>
-      <!--タグのチェックボックス-->
-      <div class="check_box row mx-auto mb-3">
-        <%= f.label :tag_ids, "駐車場タグ", class: "col-3 offset-1" %>
-        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-        <div>
-          <%= tag.label do %>
-            <%= tag.check_box %>
-            <%= tag.text %>
-          <% end %>
-        </div>
-        <% end %>
-      </div><br>
-      <!--ここまで-->
-      <div class="form-group row mx-auto">
-        <%= f.label :detail, "詳細説明", class: "col-3 offset-1" %>
-        <%= f.text_area :detail, placeholder: "(例:ウォシュレットあり)", class: "col-5" %>
-      </div><br>
-      <div class="form-group row mx-auto">
-        <%= f.label :status, "投稿ステータス", class: "col-3 offset-1" %>
-        <div class="textalign-center col-5">
-          <%= f.radio_button :status, true %>
-          <%= f.label :status, "公開" %>
-          <%= f.radio_button :status, false %>
-          <%= f.label :status, "非公開" %>
-        </div>
-      </div><br>
-      <div class="row">
-        <div class="col-5 offset-3">
-          <%= f.submit "投稿", class:"btn btn-success btn-block" %>
+  <div class="row">
+    <div class="col">
+      <p>
+        <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <h2 class="mx-auto">
+            <strong>How to use</strong>
+          </h2>
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body text-center">
+          <p>
+            検索フォームで(住所、建物など)検索をすると <i class="fa-solid fa-location-dot text-danger">(ピン)</i> がささり<br>
+            「緯度」「経度」「住所」が自動入力されます。<br>
+            また、 <i class="fa-solid fa-location-dot text-danger">(ピン)</i> をドラッグすると移動することができます。
+          </p>
         </div>
       </div>
-
-    <% end %>
+    </div>
+  </div>
+  <div class="row p-4" style="background-color: lightblue;">
+    <div class="col-5 text-center">
+      <input id="address" type="textbox" class="rounded" autofocus="true">
+      <input type="button" class="rounded" value="検索" onclick="codeAddress()">
+      <div id='map' class="mt-3"></div>
+    </div>
+    <div class="col-7 mt-5">
+      <%= form_with model: @post do |f| %>
+        <div class="text-danger d-flex justify-content-center pb-5">
+          <%= render "publics/shared/error_messages", post: @post %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :latitude,"緯度", class: "col-3 offset-1" %>
+          <%= f.text_field :latitude, id: :lat, class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :longitude,"経度", class: "col-3 offset-1" %>
+          <%= f.text_field :longitude, id: :lng, class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :name, "施設名", class: "col-3 offset-1" %>
+          <%= f.text_field :name, placeholder: "(例:セブンイレブン○○店)", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :address, "住所", class: "col-3 offset-1" %>
+          <%= f.text_field :address, id: :adr, class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :recommend, "おすすめ度", class: "col-3 offset-1" %>
+          <div id="star" class: "col-5"></div>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :genre_id, "ジャンル", class: "col-3 offset-1" %>
+          <%= f.select :genre_id, options_from_collection_for_select(@genre, :id, :name), class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :clean, "清潔度", class: "col-3 offset-1" %>
+          <div id="star-clean" class: "col-5"></div>
+        </div>
+        <!--タグのチェックボックス-->
+        <div class="check_box row mx-auto mb-3">
+          <%= f.label :tag_ids, "駐車場タグ", class: "col-3 offset-1" %>
+          <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+          <div>
+            <%= tag.label do %>
+              <%= tag.check_box %>
+              <%= tag.text %>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+        <!--ここまで-->
+        <div class="form-group row mx-auto">
+          <%= f.label :detail, "詳細説明", class: "col-3 offset-1" %>
+          <%= f.text_area :detail, placeholder: "(例:ウォシュレットあり)", class: "col-5" %>
+        </div>
+        <div class="form-group row mx-auto">
+          <%= f.label :status, "投稿ステータス", class: "col-3 offset-1" %>
+          <div class="textalign-center col-5">
+            <%= f.radio_button :status, true %>
+            <%= f.label :status, "公開" %>
+            <%= f.radio_button :status, false %>
+            <%= f.label :status, "非公開" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5 offset-3">
+            <%= f.submit "投稿", class:"btn btn-success btn-block" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -78,8 +104,8 @@
 
 <style>
 #map {
-  height: 250px;
-  width: 700px;
+  height: 550px;
+  width: 100%;
 }
 </style>
 
@@ -93,11 +119,11 @@ function initMap(){
     center: {lat: 35.6896067, lng: 139.7005713},
     zoom: 16,
   });
-
-  marker = new google.maps.Marker({
-    position:  {lat: 35.6896067, lng: 139.7005713},
-    map: map
-  });
+  // 初期マップで中央にピンを指さないためコメントアウト
+  // marker = new google.maps.Marker({
+  //   position:  {lat: 35.6896067, lng: 139.7005713},
+  //   map: map
+  // });
 }
 
 //検索後のマップ作成
@@ -124,17 +150,55 @@ function codeAddress(){
         aft = true
 
         //検索した時に緯度経度を入力する
+        console.log(results[0].geometry.location)
         document.getElementById('lat').value = results[0].geometry.location.lat();
         document.getElementById('lng').value = results[0].geometry.location.lng();
-
+        //document.getElementById('adr').value = results[0].formatted_address.replace(/^日本、.* /, '')
+         var ar =  results[0].formatted_address.split(' ');
+        document.getElementById('adr').value = ar[1]
         // マーカーのドロップ（ドラッグ終了）時のイベント
         google.maps.event.addListener( marker, 'dragend', function(ev){
             // イベントの引数evの、プロパティ.latLngが緯度経度
             document.getElementById('lat').value = ev.latLng.lat();
             document.getElementById('lng').value = ev.latLng.lng();
+            latLngtoaddress(ev.latLng)
+
         });
     } else {
       alert('該当する結果がありませんでした：' + status);
+    }
+  });
+}
+
+function latLngtoaddress(latLng){
+  geocoder.geocode({
+    latLng: latLng
+  }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      // results.length > 1 で返ってくる場合もありますが・・・。
+      if (results[0].geometry) {
+
+          // 住所を取得(日本の場合だけ「日本, 」を削除)
+          var address = results[0].formatted_address.replace(/^日本、.* /, '');
+          var ar =  results[0].formatted_address.split(' ');
+          console.log(ar);
+          document.getElementById('adr').value =ar[1];
+        }
+      }
+    else if (status == google.maps.GeocoderStatus.ERROR) {
+      alert("サーバとの通信時に何らかのエラーが発生！");
+    } else if (status == google.maps.GeocoderStatus.INVALID_REQUEST) {
+      alert("リクエストに問題アリ！geocode()に渡すGeocoderRequestを確認せよ！！");
+    } else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+      alert("短時間にクエリを送りすぎ！落ち着いて！！");
+    } else if (status == google.maps.GeocoderStatus.REQUEST_DENIED) {
+      alert("このページではジオコーダの利用が許可されていない！・・・なぜ！？");
+    } else if (status == google.maps.GeocoderStatus.UNKNOWN_ERROR) {
+      alert("サーバ側でなんらかのトラブルが発生した模様。再挑戦されたし。");
+    } else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
+      alert("見つかりません");
+    } else {
+      alert("えぇ～っと・・、バージョンアップ？");
     }
   });
 }

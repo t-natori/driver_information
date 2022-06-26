@@ -6,8 +6,7 @@
         </h2>
     </div>
   </div>
-  <p id="notice"><%= notice %></p>
-  <div class="row">
+  <div class="row pt-4" style="background-color: lightblue;">
     <div class="col-8">
       <table class="table">
         <tbody>
@@ -53,7 +52,7 @@
             <td>タグ</td>
             <td>
               <% @post.tags.each do |tag| %>
-                <span>#<%= tag.name %></span>
+                <span><i class="fa-solid fa-tag"></i><%= tag.name %></span>
               <% end %>
             </td>
           </tr>
@@ -78,9 +77,11 @@
           <tr>
             <td></td>
             <td>
-              <% if @post.customer_id == current_customer.id %>
-                <%= link_to "編集", edit_post_path(@post), class:"btn btn-success mr-5" %>
-                <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger ml-5" %>
+              <% if customer_signed_in? %>
+                <% if @post.customer_id == current_customer.id %>
+                  <%= link_to "編集", edit_post_path(@post), class:"btn btn-success mr-5" %>
+                  <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger ml-5" %>
+                <% end %>
               <% end %>
             </td>
           </tr>
@@ -89,10 +90,15 @@
     </div>
 
     <div class="col-3 offset-1">
-      <div id="comment_form">
-        <%= render "form", post: @post, comment: @comment %>
-      </div>
-      <div id="comments_area" class="mt-4" style="height: 450px; overflow: scroll;">
+
+        <div id="comment_form" style="height: 100px;">
+          <% if signed_in? %>
+            <%= render "form", post: @post, comment: @comment %>
+          <% end %>
+        </div>
+
+
+      <div id="comments_area" class="mt-4 p-2" style="background-color: white; height: 450px; overflow: scroll;">
         <%= render "publics/posts/commentlist", post: @post %>
       </div>
     </div>

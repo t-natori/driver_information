@@ -5,16 +5,9 @@
         <strong>マイページ</strong>
       </h2>
     </div>
-    <div class="col-2 offset-3 mt-3"><%= "タグ絞り込み:" %></div>
-    <div class="col-2 mt-3">
-      <%= form_tag customer_path, method: :get, class: 'boards__searchForm' do %>
-        <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]), { prompt: 'すべて表示', onchange: 'submit(this.form);' } %>
-      <% end %>
-    </div>
   </div>
-  <p id="notice"><%= notice %></p>
-  <div class="row mt-4">
-    <div class="col-2 table" style="background-color: pink;">
+  <div class="row mt-4 p-4" style="background-color: lightblue;">
+    <div class="col-2 p-3" style="background-color: rgb(208, 255, 0);">
       <h4 class="text-center mt-2"><strong>ユーザー情報</strong></h4>
       <div>
         <label>氏名</label><br>
@@ -49,15 +42,28 @@
         </div>
       </div><br>
       <% if @customer.name != "guestcustomer" %>
-        <%= link_to "ユーザー編集", edit_customer_path(@customer.id), class:"btn btn-success btn-block mt-3 mb-2" %>
-        <%= link_to "退会する", quit_path, class:"btn btn-danger btn-block mt-3 mb-2" %>
+        <%= link_to edit_customer_path(@customer.id), class:"btn btn-success btn-block mt-3 mb-2" do %>
+          <i class="fa-solid fa-user-gear"></i> 編集
+        <% end %>
+        <%= link_to quit_path, class:"btn btn-danger btn-block mt-3 mb-2" do %>
+          <i class="fa-solid fa-user-large-slash"></i> 退会
+        <% end %>
       <% end %>
     </div>
-    <div class="col-10" style="background-color: orange;">
-      <h4 class="text-center mt-2">
-        <strong>投稿一覧</strong>
-      </h4>
-      <%= render "publics/posts/post_index", posts: @posts %>
+    <div class="col-10">
+      <div class="row">
+        <h4 class="col-4 offset-2 mt-2">
+          <strong><%= current_customer.nickname %>さんの投稿一覧</strong>
+        </h4>
+      </div>
+      <div class="row">
+        <%= render "publics/posts/post_index", posts: @posts %>
+      </div>
+      <div class="row">
+        <div class="col-4 offset-5">
+          <%= paginate @posts %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,13 +1,90 @@
-Topページ
-
-
-<div class="container mt-5">
-  <div class="row">
-    <%= link_to 'ゲストログイン（閲覧用）', customers_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col bg-info text-white d-block p-3">
+      <h1 class="">
+        <strong>Topページ</strong>
+      </h1>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-6 offset-3">
-      
+  <div class="row text-center mb-5 rounded" style="background-color: rgb(255, 154, 59);">
+    <div class="col-5 bg-light">
+      <%= image_tag 'PF_truck.png', size: '400x380' %>
+    </div>
+    <div class="col-7">
+      <div class="row bg-success mb-4 rounded">
+        <div class="col pt-3 pb-2">
+          <h2><strong>サイトについて</strong></h2>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <p class="text-center">
+            このサイトはトラックの運転手や配送員など一日中外で仕事をしている人へ<br>
+            休憩スペース（トイレが使える場所）を共有したり探すことができる<br>
+            コミュニティサイトです。
+          </p>
+          <p>
+            コロナ禍ということもありコンビニなどのトイレが使用中止になったりするので<br>
+            情報の共有をすることでリアルタイムな情報が入手でき便利になります。
+          </p>
+          <h5>
+            <strong>採用担当者様</strong>はヘッダー内または,こちらの<br>
+            <%= link_to customers_guest_sign_in_path, class: "btn btn-info btn-lg mb-3 sign_in", method: :post do %>
+              <i class="fa-solid fa-right-to-bracket"></i><%= " ゲストログイン（閲覧用）" %>
+            <% end %><br>
+            からご利用ください。
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row rounded" style="background-color: rgb(255, 154, 59);">
+    <div class="col-7">
+      <div class="row bg-primary text-white text-center mb-4 rounded">
+        <div class="col pt-3 pb-2">
+          <h2><strong>Profile</strong></h2>
+        </div>
+      </div>
+      <div class="row m-5 pt-3">
+        <div class="col">
+          <div class="row mt-3">
+            <div class="col-2">
+              <p>Name:</p>
+            </div>
+            <div class="col-5">
+              <h4>Tatsuto Natori</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <p>Skills:</p>
+            </div>
+            <div class="col-5">
+               <h4>TML/CSS/JavaScript/jQuery/bootstrap</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <p>SNS:</p>
+            </div>
+            <div class="col-5 d-flex justify-content-around">
+              <%= link_to do %>
+                <h4 class="mx-auto"><i class="fa-brands fa-twitter"></i></h4><br>
+              <% end %>
+              <%= link_to do %>
+                <h4 class="mx-auto"><i class="fa-brands fa-instagram"></i></h4><br>
+              <% end %>
+              <%= link_to do %>
+                <h4 class="mx-auto"><i class="fa-brands fa-facebook-square"></i></h4>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-5 bg-light">
+      <%= image_tag 'PF_my.png', size: '400x380' %>
     </div>
   </div>
 </div>

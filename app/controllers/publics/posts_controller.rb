@@ -13,14 +13,14 @@ class Publics::PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post), notice: "投稿が登録されました"
     else
-      @post = Post.new
       @genre = Genre.all
       render :new
     end
   end
 
   def index
-    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.where(status: true).page(params[:page]).per(7)
+    posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.where(status: true) : Post.where(status: true)
+    @posts = posts.page(params[:page]).per(7)
   end
 
   def show
@@ -32,7 +32,7 @@ class Publics::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
-      redirect_to posts_path
+      redirect_to posts_path, notice: "投稿が削除されました"
     else
       @comment = Comment.new
       @tags = @posts.tags
@@ -52,7 +52,6 @@ class Publics::PostsController < ApplicationController
     else
       render :edit
     end
-
   end
 
   private

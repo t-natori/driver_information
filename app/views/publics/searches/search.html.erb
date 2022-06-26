@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row text-center mb-4">
+    <div class="col-3 offset-1">
+      <h2 class="bg-info text-white d-block text-center">
+        <strong>検索結果</strong>
+      </h2>
+    </div>
+  </div>
+  <div class="row pt-4 pb-4" style="background-color: lightblue; min-height: 600px;">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <%= render "publics/posts/post_index", posts: @posts %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 offset-5">
+          <%= paginate @posts %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
