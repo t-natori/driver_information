@@ -10,7 +10,9 @@
     <div class="col-6 offset-3">
       <%= form_with model: @customer, url: customer_session_path do |f| %>
         <div class="row text-danger">
-          <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="col">
+            <%= render "devise/shared/error_messages", resource: resource %>
+          </div>
         </div>
         <table class="table table-borderless mb-5" style="margin-top: 20px;">
           <tbody>
