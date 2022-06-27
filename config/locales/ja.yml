@@ -7,6 +7,7 @@ ja:
       customer:
         email: メールアドレス
         password: パスワード
+        password_confirmation: パスワード(確認用)
         name: 氏名
         name_kana: 氏名(カナ)
         nickname: ニックネーム
@@ -27,8 +28,12 @@ ja:
           attributes:
             email:
               blank: を入力してください
+              taken: が既に使われています
             password:
               blank: を入力してください
+              too_short: は6文字以上で入力してください
+            password_confirmation:
+              confirmation: を入力してください
             name:
               blank: を入力してください
             name_kana:
