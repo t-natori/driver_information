@@ -1,6 +1,38 @@
-<%= form_with model: [post, comment], local: false do |f| %>
-  <%= f.text_area :body, placeholder: "コメント" %><br>
-  <div class="text-right">
-  <%= f.submit "送信" %>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  コメントを投稿する
+</button>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-between">
+              <h4>
+                <strong>コメント</strong>
+              </h4>
+              <%= link_to do %>
+                <i class="fa-solid fa-square-xmark text-danger fa-2x"></i>
+              <% end %>
+            </div>
+          </div>
+          <div class="rowtext-center">
+            <div class="col">
+              <%= form_with model: [post, comment], local: false do |f| %>
+                <%= f.text_area :body, autofocus: true, placeholder: "コメント内容", class:"comment_form" %><br>
+                <div class="text-right">
+                  <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+                    <i class="fa-solid fa-paper-plane"></i>送信
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
