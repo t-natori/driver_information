@@ -20,7 +20,7 @@ validates :latitude, presence: true
 validates :longitude, presence: true
 validates :name, presence: true
 validates :address, presence: true
-# validates :type, presence: true
+validates :detail, presence: true
 
 #星評価5以下1以上
 validates :recommend, numericality: {

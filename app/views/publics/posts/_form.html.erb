@@ -7,17 +7,21 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="container">
-          <div class="row mb-4">
-            <div class="col d-flex justify-content-between">
-              <h4>
-                <strong>コメント</strong>
-              </h4>
-              <%= link_to do %>
-                <i class="fa-solid fa-square-xmark text-danger fa-2x"></i>
-              <% end %>
+          <div class="row">
+            <div class="col">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="fa-solid fa-rectangle-xmark fa-lg text-danger"></i>
+              </button>
             </div>
           </div>
-          <div class="rowtext-center">
+          <div class="row mb-3">
+            <div class="col ml-1">
+              <h4 class="vertical-middle">
+                <strong>コメント</strong>
+              </h4>
+            </div>
+          </div>
+          <div class="row text-center">
             <div class="col">
               <%= form_with model: [post, comment], local: false do |f| %>
                 <%= f.text_area :body, autofocus: true, placeholder: "コメント内容", class:"comment_form" %><br>

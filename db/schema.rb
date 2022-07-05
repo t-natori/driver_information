@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2022_06_17_102728) do
     t.integer "parking"
     t.text "detail"
     t.boolean "status", default: true, null: false
+    t.decimal "score", precision: 5, scale: 3
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

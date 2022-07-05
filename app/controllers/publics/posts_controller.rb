@@ -10,6 +10,8 @@ class Publics::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
+    @post.score = Language.get_data(post_params[:detail])
+    
     if @post.save
       redirect_to post_path(@post), notice: "投稿が登録されました"
     else
