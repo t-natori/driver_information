@@ -41,21 +41,18 @@
           <tr>
             <td>詳細説明</td>
             <td>
-              <% if @post.detail.present? %>
-
-                <%= @post.detail %>
-              <% else %>
-                <%= "詳細説明はありません" %>
-              <% end %>
+              <%= @post.detail %>
             </td>
           </tr>
-          <tr>
-            <td>感情分析のスコア</td>
-            <td>
-              [<%= @post.score %>]
-              ※<-1~1>
-            </td>
-          </tr>
+          <% if @post.score.present? %>
+            <tr>
+              <td>感情分析のスコア</td>
+              <td>
+                [<%= @post.score %>]
+                ※<-1~1>
+              </td>
+            </tr>
+          <% end %>
           <tr>
             <td>タグ</td>
             <td>
