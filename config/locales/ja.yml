@@ -20,6 +20,7 @@ ja:
         address: 住所
         recommend: おすすめ度
         clean: 清潔度
+        detail: 詳細、感想
 
 
     errors:
@@ -59,7 +60,8 @@ ja:
             clean:
               not_a_number: の星がありません
               blank: を入力してください
-
+            detail:
+              blank: を入力してください
 
 
 

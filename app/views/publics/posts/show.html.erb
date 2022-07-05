@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container postshow">
   <div class="row text-center mb-4">
     <div class="col-3 offset-1">
       <h2 class="bg-info text-white d-block text-center">
@@ -42,10 +42,18 @@
             <td>詳細説明</td>
             <td>
               <% if @post.detail.present? %>
+
                 <%= @post.detail %>
               <% else %>
                 <%= "詳細説明はありません" %>
               <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>感情分析のスコア</td>
+            <td>
+              [<%= @post.score %>]
+              ※<-1~1>
             </td>
           </tr>
           <tr>
@@ -98,7 +106,7 @@
         </div>
 
 
-      <div id="comments_area" class="mt-4 p-2" style="background-color: white; height: 450px; overflow: scroll;">
+      <div id="comments_area" class="mt-4 p-2 bg-white" style="height: 450px; overflow: scroll;">
         <%= render "publics/posts/commentlist", post: @post %>
       </div>
     </div>
