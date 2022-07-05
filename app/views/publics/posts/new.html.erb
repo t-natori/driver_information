@@ -46,15 +46,15 @@
           <%= f.text_field :longitude, id: :lng, class: "col-5" %>
         </div>
         <div class="form-group row mx-auto">
-          <%= f.label :name, "施設名", class: "col-3 offset-1" %>
+          <%= f.label :name, "施設名(必須)", class: "col-3 offset-1" %>
           <%= f.text_field :name, placeholder: "(例:セブンイレブン○○店)", class: "col-5" %>
         </div>
         <div class="form-group row mx-auto">
-          <%= f.label :address, "住所", class: "col-3 offset-1" %>
+          <%= f.label :address, "住所(必須)", class: "col-3 offset-1" %>
           <%= f.text_field :address, id: :adr, class: "col-5" %>
         </div>
         <div class="form-group row mx-auto">
-          <%= f.label :recommend, "おすすめ度", class: "col-3 offset-1" %>
+          <%= f.label :recommend, "おすすめ度(必須)", class: "col-3 offset-1" %>
           <div id="star" class: "col-5"></div>
         </div>
         <div class="form-group row mx-auto">
@@ -62,7 +62,7 @@
           <%= f.select :genre_id, options_from_collection_for_select(@genre, :id, :name), class: "col-5" %>
         </div>
         <div class="form-group row mx-auto">
-          <%= f.label :clean, "清潔度", class: "col-3 offset-1" %>
+          <%= f.label :clean, "清潔度(必須)", class: "col-3 offset-1" %>
           <div id="star-clean" class: "col-5"></div>
         </div>
         <!--タグのチェックボックス-->
@@ -79,7 +79,7 @@
         </div>
         <!--ここまで-->
         <div class="form-group row mx-auto">
-          <%= f.label :detail, "詳細説明", class: "col-3 offset-1" %>
+          <%= f.label :detail, "詳細、感想(必須)", class: "col-3 offset-1" %>
           <%= f.text_area :detail, placeholder: "(例:ウォシュレットあり)", class: "col-5" %>
         </div>
         <div class="form-group row mx-auto">
