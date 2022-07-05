@@ -14,7 +14,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.integer :parking
       t.text :detail
       t.boolean :status, null: false, default: true
-      t.decimal :score, precision: 5, scale: 3
+      # t.decimal :score, precision: 5, scale: 3
 
       t.timestamps
     end
