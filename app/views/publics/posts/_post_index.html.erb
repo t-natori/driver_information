@@ -1,30 +1,33 @@
-<table class="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>施設名</th>
-            <th>住所</th>
-            <th>おすすめ度</th>
-            <th>ジャンル</th>
-            <th>タグ</th>
-            <th>いいね</th>
-            <th>投稿ステータス</th>
-          </tr>
-        </thead>
+<% posts.each do |t| %>
+  <div class="col">
+      <table class="table" style="background-color: lightblue;">
         <tbody>
-          <% posts.each do |t| %>
           <tr>
             <td>
-              <% if t.customer == current_customer %>
-                <i class="fa-solid fa-user-check"></i>
-              <% end %>
+              投稿者
+            </td>
+            <td>
+              <%= t.customer.nickname %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              施設名
             </td>
             <td>
               <%= link_to post_path(t.id) do %>
                 <%= t.name %>
               <% end %>
             </td>
+          </tr>
+          <tr>
+            <td>
+              住所
+            </td>
             <td><%= t.address %></td>
+          </tr>
+          <tr>
+            <td>おすすめ度</td>
             <td><div id="star-<%= t.id %>"></div></td>
               <script>
 
@@ -43,18 +46,27 @@
                   }
 
               </script>
+          </tr>
+          <tr>
+            <td>ジャンル</td>
             <td><%= t.genre.name %></td>
-
+          </tr>
+          <tr>
+            <td>タグ</td>
             <td>
               <% t.tags.each do |tag| %>
                 <i class="fa-solid fa-tag"></i><%= tag.name %><br>
               <% end %>
             </td>
-
-
+          </tr>
+          <tr>
+            <td>いいね</td>
             <td id="favorite_buttons_<%= t.id %>">
               <%= render "publics/favorites/favorite", post: t %>
             </td>
+          </tr>
+          <tr>
+            <td>投稿ステータス</td>
             <td>
               <% if t.status == true %>
                 <%= "公開" %>
@@ -63,7 +75,8 @@
               <% end %>
             </td>
           </tr>
-        <% end %>
         </tbody>
       </table>
-      <div class="text-center"></div>
+    <div class="text-center"></div>
+  </div>
+<% end %>
