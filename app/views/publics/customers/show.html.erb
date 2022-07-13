@@ -6,21 +6,38 @@
       </h2>
     </div>
   </div>
-  <div class="row mt-4" style="background-color: lightblue;">
-    <div class="col-2 p-3" style="background-color: rgb(208, 255, 0);">
+  <div class="row mt-4">
+    <div class="col-3 p-3 mr-1" style="background-color: rgb(208, 255, 0); height: 700px;">
       <h4 class="text-center mt-2"><strong>ユーザー情報</strong></h4>
-      <div>
-        <label>氏名</label><br>
-        <strong class="d-flex justify-content-center"><%= @customer.name %></strong>
+      <div class="text-center">
+        <% if @customer.profile_image.attached? %>
+          <%= image_tag @customer.profile_image, size: "180x180" %>
+        <% else %>
+          <%= image_tag "no_image.jpg", size: "150x150" %>
+        <% end %>
       </div><br>
-      <div>
-        <label>氏名(カナ)</label><br>
-        <strong class="d-flex justify-content-center"><%= @customer.name_kana %></strong>
-      </div><br>
-      <div>
-        <label>ニックネーム</label><br>
-        <strong class="d-flex justify-content-center"><%= @customer.nickname %></strong>
-      </div><br>
+      <table style="width: 100%;">
+        <tbody>
+          <tr>
+            <td>氏名</td>
+            <td class="text-center">
+              <strong><%= @customer.name %></strong>
+            </td>
+          </tr>
+          <tr>
+            <td>氏名(カナ)</td>
+            <td class="text-center">
+              <strong><%= @customer.name_kana %></strong>
+            </td>
+          </tr>
+          <tr>
+            <td>ニックネーム</td>
+            <td class="text-center">
+              <strong><%= @customer.nickname %></strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div>
         <label>メールアドレス</label><br>
         <strong class="d-flex justify-content-center"><%= @customer.email %></strong>
@@ -50,9 +67,9 @@
         <% end %>
       <% end %>
     </div>
-    <div class="col-10 pt-4 pb-4">
+    <div class="col pt-4 pb-4" style="background-color: lightblue;">
       <div class="row">
-        <h4 class="col offset-2 mt-2">
+        <h4 class="col mt-2 text-center">
           <strong><%= current_customer.nickname %>さんの投稿一覧</strong>
         </h4>
       </div>

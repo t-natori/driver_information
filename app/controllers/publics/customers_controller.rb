@@ -43,7 +43,7 @@ class Publics::CustomersController < ApplicationController
   private
 
   def customer_params
-    params.require(:customer).permit(:name, :name_kana, :nickname, :email, :phone_number, :status)
+    params.require(:customer).permit(:name, :name_kana, :nickname, :email, :phone_number, :status, :profile_image)
   end
 
   def ensure_guest_customer

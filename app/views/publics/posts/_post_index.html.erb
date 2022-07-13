@@ -1,82 +1,57 @@
 <% posts.each do |t| %>
-  <div class="col">
-      <table class="table" style="background-color: lightblue;">
-        <tbody>
-          <tr>
-            <td>
-              投稿者
-            </td>
-            <td>
-              <%= t.customer.nickname %>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              施設名
-            </td>
-            <td>
-              <%= link_to post_path(t.id) do %>
-                <%= t.name %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              住所
-            </td>
-            <td><%= t.address %></td>
-          </tr>
-          <tr>
-            <td>おすすめ度</td>
-            <td><div id="star-<%= t.id %>"></div></td>
-              <script>
+  <div class="col p-3 mr-3 mb-5" style="background-color: lightblue; width: 30%;">
+    <div class="row">
+      <div class="col-6">
+        <% if t.customer.profile_image.attached? %>
+          <%= image_tag t.customer.profile_image, size: "100x100" %>
+        <% else %>
+          <%= image_tag "no_image.jpg", size: "100x100" %>
+        <% end %><br>
+        <p><%= t.customer.nickname %></p>
+      </div>
+      <div class="col-6">
+        <div class="mt-2 mb-2">
+          <% if t.genre.name == "トイレ" %>
+            <i class="fa-solid fa-restroom fa-3x bg-white text-warning"></i>
+          <% elsif t.genre.name == "駐禁" %>
+            <i class="fa-solid fa-ban-parking fa-3x bg-white text-danger"></i>
+          <% elsif t.genre.name == "ネズミ捕り" %>
+            <i class="fa-solid fa-user-police fa-3x bg-white text-success"></i>
+          <% end %>
+        </div>
+        <div class="text-center" id="favorite_buttons_<%= t.id %>">
+          <%= render "publics/favorites/favorite", post: t %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center mt-2">
+          <div>
+            <%= link_to post_path(t.id) do %>
+              <%= t.name %>
+            <% end %>
+          </div><br>
+          <div><%= t.address %></div><br>
+          <div id="star-<%= t.id %>"></div>
+            <script>
 
-                  init();
-                  function init(){
-                    if (0 < $("#star-<%= t.id %> img").length) return false;
-                    $("#star-<%= t.id %>").raty({
-                      starOn: "<%= asset_path('star-on.png') %>",
-                      starOff: "<%= asset_path('star-off.png') %>",
-                      scoreName: 'post[recommend]',
-                      // 読み取り専用
-                      readOnly: true,
-                      // 星評価の読み込み
-                      score: <%= t.recommend %>,
-                    });
-                  }
+                init();
+                function init(){
+                  if (0 < $("#star-<%= t.id %> img").length) return false;
+                  $("#star-<%= t.id %>").raty({
+                    starOn: "<%= asset_path('star-on.png') %>",
+                    starOff: "<%= asset_path('star-off.png') %>",
+                    scoreName: 'post[recommend]',
+                    // 読み取り専用
+                    readOnly: true,
+                    // 星評価の読み込み
+                    score: <%= t.recommend %>,
+                  });
+                }
 
-              </script>
-          </tr>
-          <tr>
-            <td>ジャンル</td>
-            <td><%= t.genre.name %></td>
-          </tr>
-          <tr>
-            <td>タグ</td>
-            <td>
-              <% t.tags.each do |tag| %>
-                <i class="fa-solid fa-tag"></i><%= tag.name %><br>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>いいね</td>
-            <td id="favorite_buttons_<%= t.id %>">
-              <%= render "publics/favorites/favorite", post: t %>
-            </td>
-          </tr>
-          <tr>
-            <td>投稿ステータス</td>
-            <td>
-              <% if t.status == true %>
-                <%= "公開" %>
-              <% else %>
-                <%= "非公開" %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </script>
+        </div>
+      </div>
+    </div>
     <div class="text-center"></div>
   </div>
 <% end %>
