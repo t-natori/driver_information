@@ -6,12 +6,10 @@
       </h2>
     </div>
   </div>
-  <div class="row pt-4 pb-4" style="background-color: lightblue; min-height: 600px;">
+  <div class="row pt-4 pb-4" style="min-height: 600px;">
     <div class="col">
-      <div class="row">
-        <div class="col">
+      <div class="row justify-content-around">
           <%= render "publics/posts/post_index", posts: @posts %>
-        </div>
       </div>
       <div class="row">
         <div class="col-4 offset-5">
