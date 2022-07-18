@@ -6,7 +6,7 @@ class Publics::FavoritesController < ApplicationController
 
     @posts = @customer.posts.where(status: true)
     @favorites = Favorite.where(customer_id: current_customer.id).pluck(:post_id)
-    @favorites_list = Post.where(id: @favorites).where(status: true)
+    @favorites_list = Post.where(id: @favorites).where(status: true).page(params[:page]).per(6)
   end
 
   def create
