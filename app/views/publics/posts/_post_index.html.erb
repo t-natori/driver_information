@@ -1,60 +1,60 @@
 <% posts.each do |t| %>
   <div class="col-4">
     <div class="border border-dark mx-1 p-3 mb-5" style="background-color: lightblue;">
-    <div class="row ">
-      <div class="col-6 text-center">
-        <% if t.customer.profile_image.attached? %>
-          <%= image_tag t.customer.profile_image, size: "100x100" %>
-        <% else %>
-          <%= image_tag "no_image.jpg", size: "100x100" %>
-        <% end %><br>
-        <p><%= t.customer.nickname %></p>
-      </div>
-      <div class="col-6 text-center">
-        <div class="mt-2 mb-4">
-          <% if t.genre.name == "トイレ" %>
-            <i class="fa-solid fa-restroom fa-3x text-danger"></i>
-          <% elsif t.genre.name == "駐禁" %>
-            <i class="fas fa-parking fa-3x text-danger"></i>
-          <% elsif t.genre.name == "ネズミ捕り" %>
-            <i class="fa-solid fa-person-military-pointing fa-3x text-danger"></i>
+      <div class="row">
+        <div class="col-6 text-center">
+          <% if t.customer.profile_image.attached? %>
+            <%= image_tag t.customer.profile_image, size: "100x100" %>
+          <% else %>
+            <%= image_tag "no_image.jpg", size: "100x100" %>
           <% end %><br>
-          [ <%= t.genre.name %> ]
+          <p class="mt-2"><%= t.customer.nickname %></p>
         </div>
-        <div class="text-center" id="favorite_buttons_<%= t.id %>">
-          <%= render "publics/favorites/favorite", post: t %>
+        <div class="col-6 text-center">
+          <div class="mt-2 mb-3">
+            <% if t.genre.name == "トイレ" %>
+              <i class="fa-solid fa-restroom fa-3x text-danger"></i>
+            <% elsif t.genre.name == "駐禁" %>
+              <i class="fas fa-parking fa-3x text-danger"></i>
+            <% elsif t.genre.name == "ネズミ捕り" %>
+              <i class="fa-solid fa-person-military-pointing fa-3x text-danger"></i>
+            <% end %><br>
+            <%= t.genre.name %>
+          </div>
+          <div class="text-center" id="favorite_buttons_<%= t.id %>">
+            <%= render "publics/favorites/favorite", post: t %>
+          </div>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col text-center mt-2">
+          <div>
+            <%= link_to post_path(t.id) do %>
+              <strong><%= t.name %></strong>
+            <% end %>
+          </div><br>
+          <div><%= t.address %></div><br>
+          <div id="star-<%= t.id %>"></div>
+            <script>
+
+                init();
+                function init(){
+                  if (0 < $("#star-<%= t.id %> img").length) return false;
+                  $("#star-<%= t.id %>").raty({
+                    starOn: "<%= asset_path('star-on.png') %>",
+                    starOff: "<%= asset_path('star-off.png') %>",
+                    scoreName: 'post[recommend]',
+                    // 読み取り専用
+                    readOnly: true,
+                    // 星評価の読み込み
+                    score: <%= t.recommend %>,
+                  });
+                }
+
+            </script>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col text-center mt-2">
-        <div>
-          <%= link_to post_path(t.id) do %>
-            <%= t.name %>
-          <% end %>
-        </div><br>
-        <div><%= t.address %></div><br>
-        <div id="star-<%= t.id %>"></div>
-          <script>
-
-              init();
-              function init(){
-                if (0 < $("#star-<%= t.id %> img").length) return false;
-                $("#star-<%= t.id %>").raty({
-                  starOn: "<%= asset_path('star-on.png') %>",
-                  starOff: "<%= asset_path('star-off.png') %>",
-                  scoreName: 'post[recommend]',
-                  // 読み取り専用
-                  readOnly: true,
-                  // 星評価の読み込み
-                  score: <%= t.recommend %>,
-                });
-              }
-
-          </script>
-      </div>
-    </div>
-    </div>
     <div class="text-center"></div>
   </div>
 <% end %>
