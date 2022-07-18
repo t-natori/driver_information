@@ -11,7 +11,7 @@ class Publics::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
     @post.score = Language.get_data(post_params[:detail])
-    
+
     if @post.save
       redirect_to post_path(@post), notice: "投稿が登録されました"
     else
@@ -22,7 +22,7 @@ class Publics::PostsController < ApplicationController
 
   def index
     posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts.where(status: true) : Post.where(status: true)
-    @posts = posts.page(params[:page]).per(7)
+    @posts = posts.page(params[:page]).per(6)
   end
 
   def show
