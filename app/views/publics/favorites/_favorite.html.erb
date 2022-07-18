@@ -1,11 +1,11 @@
 <% if customer_signed_in? %>
   <% if post.favorited_by?(current_customer) %>
-      <%= link_to post_favorites_path(post), method: :delete, remote: true do %>
-        <i class="fa-solid fa-thumbs-up"></i>   <%= post.favorites.count %>
+      <%= link_to post_favorites_path(post), method: :delete, remote: true, class:"btn btn-success" do %>
+        good! <i class="fa-solid fa-thumbs-up"></i>   <%= post.favorites.count %>
       <% end %>
   <% else %>
-      <%= link_to post_favorites_path(post), method: :post, remote: true do %>
-        <i class="fa-regular fa-thumbs-up"></i>   <%= post.favorites.count %>
+      <%= link_to post_favorites_path(post), method: :post, remote: true, class:"btn btn-secondary" do %>
+        good! <i class="fa-regular fa-thumbs-up"></i>   <%= post.favorites.count %>
       <% end %>
   <% end %>
 <% else %>

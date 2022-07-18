@@ -8,7 +8,7 @@
   </div>
   <% if customer_signed_in? %>
     <div class="row mb-3">
-      <div class="col-5 offset-1">
+      <div class="col-5 ml-4">
         <%= render "publics/searches/search" %>
       </div>
       <div class="col-4 mt-1">
@@ -22,20 +22,20 @@
           %>
         <% end %>
       </div>
-      <div class="col btn btn-primary">
+      <div class="col-2 btn btn-success">
         <%= link_to customer_favorites_index_path(current_customer.id) do %>
-          <i class="fa-solid fa-thumbs-up text-white">いいね一覧</i>
+          <div class="text-white">good! <i class="fa-solid fa-thumbs-up"></i> 一覧</div>
         <% end %>
       </div>
     </div>
   <% end %>
-  <div class="row pt-4 pb-4">
+  <div class="row pt-4 pb-4 bg-white">
     <div class="col">
       <div class="row">
         <%= render "post_index", posts: @posts %>
       </div>
       <div class="row">
-        <div class="col-4 offset-5">
+        <div class="col-1 offset-5 bg-white">
           <%= paginate @posts %>
         </div>
       </div>
