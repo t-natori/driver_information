@@ -15,7 +15,7 @@
     <div class="col">
       <div class="row">
         <% if @favorites_list.present? %>
-          <%= render "publics/posts/post_index", posts: @favorites_list %>
+          <%= render "publics/posts/post_index", posts: @list %>
         <% else %>
           <div class="col text-center">
             <h2 style="margin: 200px 0;">
@@ -26,7 +26,7 @@
       </div>
       <div class="row">
         <div class="col-1 offset-5">
-          <%= paginate @favorites_list %>
+          <%= paginate @list %>
         </div>
       </div>
     </div>
