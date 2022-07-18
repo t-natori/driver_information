@@ -12,14 +12,16 @@
     good! <i class="fa-solid fa-thumbs-up"></i>件数：<strong><%= @favorites_list.count %>件</strong>
   </h4>
   <div class="row pt-4 pb-4 bg-white" style="min-height: 550px;">
-    <div class="col text-center">
+
       <% if @favorites_list.present? %>
         <%= render "publics/posts/post_index", posts: @favorites_list %>
       <% else %>
-        <h2 style="margin: 200px 0;">
-          <i class="fa-solid fa-thumbs-up"></i>いいねをした投稿はありません
-        </h2>
+        <div class="col text-center">
+          <h2 style="margin: 200px 0;">
+            <i class="fa-solid fa-thumbs-up"></i>いいねをした投稿はありません
+          </h2>
+        </div>
       <% end %>
-    </div>
+
   </div>
 </div>
