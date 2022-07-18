@@ -3,21 +3,23 @@
     <div class="col-3 offset-1">
       <h2 class="bg-info text-white d-block text-center">
         <strong>
-          <i class="fa-solid fa-thumbs-up">いいね一覧</i>
+          good! <i class="fa-solid fa-thumbs-up"></i> 一覧
         </strong>
       </h2>
     </div>
   </div>
   <h4 class="text-center bg-white">
-    いいね件数：<strong><%= @favorites_list.count %>件</strong>
+    good! <i class="fa-solid fa-thumbs-up"></i>件数：<strong><%= @favorites_list.count %>件</strong>
   </h4>
   <div class="row pt-4 pb-4 bg-white" style="min-height: 550px;">
-    <% if @favorites_list.present? %>
-      <%= render "publics/posts/post_index", posts: @favorites_list %>
-    <% else %>
-      <h2 class="text-center" style="margin: 200px 0;">
-        <i class="fa-solid fa-thumbs-up"></i>いいねをした投稿はありません
-      </h2>
-    <% end %>
+    <div class="col text-center">
+      <% if @favorites_list.present? %>
+        <%= render "publics/posts/post_index", posts: @favorites_list %>
+      <% else %>
+        <h2 style="margin: 200px 0;">
+          <i class="fa-solid fa-thumbs-up"></i>いいねをした投稿はありません
+        </h2>
+      <% end %>
+    </div>
   </div>
 </div>
