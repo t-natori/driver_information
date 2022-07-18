@@ -1,6 +1,7 @@
 <% posts.each do |t| %>
-  <div class="col-3 border border-dark mx-1 p-3 mb-5" style="background-color: lightblue;">
-    <div class="row ">
+  <div class="col-4">
+    <div class="border border-dark p-3 mb-5" style="background-color: lightblue;">
+    <div class="row">
       <div class="col-6 text-center">
         <% if t.customer.profile_image.attached? %>
           <%= image_tag t.customer.profile_image, size: "100x100" %>
@@ -14,7 +15,7 @@
           <% if t.genre.name == "トイレ" %>
             <i class="fa-solid fa-restroom fa-3x bg-white text-warning"></i>
           <% elsif t.genre.name == "駐禁" %>
-            <i class="fas fa-parking-slash fa-3x bg-white text-danger"></i>
+            <i class="fas fa-parking fa-3x bg-white text-danger"></i>
           <% elsif t.genre.name == "ネズミ捕り" %>
             <i class="fa-solid fa-user-police fa-3x bg-white text-success"></i>
           <% end %>
@@ -52,7 +53,7 @@
           </script>
       </div>
     </div>
-
+    </div>
     <div class="text-center"></div>
   </div>
 <% end %>

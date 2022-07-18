@@ -7,39 +7,39 @@
     </div>
   </div>
     <div class="p-5" style="background-color: lightblue;">
-      <%= form_with model: @customer, url: customer_registration_path do |f| %>
+      <%= form_with model: @customer, url: customer_registration_path, id:"form" do |f| %>
         <div class="row text-danger">
-          <div class="col">
-            <%= render "devise/shared/error_messages", resource: resource %>
-          </div>
+          <!--<div class="col">-->
+          <!--  <%#= render "devise/shared/error_messages", resource: resource %>-->
+          <!--</div>-->
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :name, "氏名", class: "col-3 offset-2" %>
-          <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "col-3" %>
+          <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "例) 山田太郎", class: "col-3" %>
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :name_kana, "氏名（カナ）", class: "col-3 offset-2" %>
-          <%= f.text_field :name_kana, autocomplete: "name_kana", class: "col-3" %>
+          <%= f.text_field :name_kana, autocomplete: "name_kana", placeholder: "例) ヤマダタロウ", class: "col-3" %>
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :nickname, "ニックネーム", class: "col-3 offset-2" %>
-          <%= f.text_field :nickname, autocomplete: "nickname", class: "col-3" %>
+          <%= f.text_field :nickname, autocomplete: "nickname", placeholder: "例) やまちゃん", class: "col-3" %>
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :email, "メールアドレス", class: "col-3 offset-2" %>
-          <%= f.email_field :email, autocomplete: "email", class: "col-3" %>
+          <%= f.email_field :email, autocomplete: "email", placeholder: "例) example＠〇〇.jp", class: "col-3" %>
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :phone_number, "電話番号", class: "col-3 offset-2" %>
-          <%= f.telephone_field :phone_number, autocomplete: "phone_number", class: "col-3" %>
+          <%= f.telephone_field :phone_number, autocomplete: "phone_number", placeholder: "ハイフンなし", class: "col-3" %>
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :password, "パスワード", class: "col-3 offset-2" %>
-          <%= f.password_field :password, autocomplete: "new-password", class: "col-3" %>
+          <%= f.password_field :password, autocomplete: "new-password", placeholder: "6文字以上", class: "col-3" %>
         </div>
         <div class="form-group row mx-auto">
           <%= f.label :password_confirmation, "パスワード（確認用）", class: "col-3 offset-2" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "col-3" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度入力してください", class: "col-3" %>
         </div>
           <div class="row">
           <div class="col-5 offset-5">
@@ -55,3 +55,68 @@
       </div>
     </div>
 </div>
+
+<script>
+  $(document).on('turbolinks:load', function () {
+    $('#form').validate({
+      rules: {
+        "customer[name]": {
+          required: true,
+        },
+        "customer[name_kana]": {
+          required: true,
+        },
+        "customer[nickname]": {
+          required: true,
+        },
+        "customer[email]": {
+          required: true,
+          // email: true,
+        },
+        "customer[phone_number]": {
+          required: true,
+        },
+        "customer[password]": {
+          required: true,
+          // password: true,
+        },
+        "customer[password_confirmation]": {
+          required: true,
+
+        },
+      },
+      // messages: {
+      //   "customer[name]": {
+      //     required: "氏名を入力してください"
+      //   },
+      //   "customer[name_kana]": {
+      //     required: "氏名(カナ)を入力してください",
+      //   },
+      //   "customer[nickname]": {
+      //     required: "ニックネームを入力してください",
+      //   },
+      //   "customer[email]": {
+      //     required: "メールアドレスを入力してください",
+      //     // email: "フォーマットが不適切です"
+      //   },
+      //   "customer[phone_number]": {
+      //     required: "電話番号を入力してください",
+      //   },
+      //   "customer[password]": {
+      //     required: "パスワードを入力してください",
+      //   },
+      //   "customer[password_confirmation]": {
+      //     required: "パスワード(確認用)を入力してください",
+      //     // equalTo: "input["
+      //   },
+      // }
+
+      errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定
+      errorElement: "p", // エラーメッセージの要素種類の指定
+      validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定
+  	})
+  	$("#customer_name, #customer_name_kana, #customer_nickname, #customer_email, #customer_phone_number, #customer_password, #customer_password_confirmation").blur(function () {
+      $(this).valid();
+    });
+  })
+</script>

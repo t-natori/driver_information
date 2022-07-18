@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="row pt-5 pb-5 mt-5" style="background-color: lightblue; margin: 40px 0;">
-    <div class="col-6 offset-3">
+    <div id="form" class="col-6 offset-3">
       <%= form_with model: @customer, url: customer_session_path do |f| %>
         <div class="row text-danger">
           <div class="col">
@@ -45,3 +45,60 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(function () {
+  // メソッドの定義
+  var methods = {
+    email: function (value, element) { // メールアドレスの正規表現
+      return this.optional(element) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(value);
+    },
+    password: function (value, element) { // パスワードの正規表現
+      return this.optional(element) || /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value);
+    },
+  }
+  // メソッドの追加
+  $.each(methods, function (key) {
+    $.validator.addMethod(key, this);
+  });
+  // バリデーションの実行
+  $("#signup-form").validate({
+    // ルール設定
+    rules: {
+      "user[name]": {
+        required: true // ニックネームの入力有無チェック
+      },
+      "user[email]": {
+        required: true, // メールアドレスの入力有無チェック
+        email: true // メールアドレスの正規表現チェック
+      },
+      "user[password]": {
+        required: true, // パスワードの入力有無チェック
+        password: true // メールアドレスの正規表現チェック
+      },
+    },
+    // エラーメッセージの定義
+    messages: {
+      "customer[name]": {
+        required: "ニックネームを入力してください"
+      },
+      "customer[email]": {
+        required: "メールアドレスを入力してください",
+        email: "フォーマットが不適切です"
+      },
+      "customer[password]": {
+        required: "パスワードを入力してください",
+        password: "英字と数字両方を含むパスワードを入力してください"
+      },
+    },
+    errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定
+    errorElement: "p", // エラーメッセージの要素種類の指定
+    validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定
+    }
+  });
+  // 入力欄をフォーカスアウトしたときにバリデーションを実行
+  $("#name, #email, #password").blur(function () {
+    $(this).valid();
+  });
+});
+</script>
