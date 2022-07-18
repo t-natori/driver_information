@@ -8,7 +8,7 @@ class Publics::CustomersController < ApplicationController
       redirect_to customer_path(current_customer), notice: "リクエストされたページには遷移できません"
     else
       posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : @customer.posts
-      @posts = posts.page(params[:page]).per(7)
+      @posts = posts.page(params[:page]).per(6)
     end
   end
 
