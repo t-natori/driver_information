@@ -12,7 +12,14 @@
         <tbody>
           <tr>
             <td>投稿者</td>
-            <td colspan="2"><%= @post.customer.nickname %></td>
+            <td colspan="2">
+              <% if @post.customer.profile_image.attached? %>
+                <%= image_tag @post.customer.profile_image, size: "80x80" %>
+              <% else %>
+                <%= image_tag "no_image.jpg", size: "80x80" %>
+              <% end %><br>
+              <%= @post.customer.nickname %>
+              </td>
           </tr>
           <tr>
             <td>緯度,経度</td>
