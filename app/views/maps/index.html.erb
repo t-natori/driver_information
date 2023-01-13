@@ -79,7 +79,7 @@ function initMap(){
             google.maps.event.addListener(infowindow,'domready',init)
 
             function init(){
-              // if (0 < $("#star-<%#= post.id %>").length) return false;
+              if (0 < $("#star-<%= post.id %> img").length) return false;
               $("#star-<%= post.id %>").raty({
                 starOn: "<%= asset_path('star-on.png') %>",
                 starOff: "<%= asset_path('star-off.png') %>",
